@@ -32,9 +32,9 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 50),
                           //--AppBar--
                           const HomeAppBar(),
-        
+
                           // header start
-        
+
                           //-- heading content--
                           const SizedBox(height: 50),
                           Row(
@@ -76,13 +76,13 @@ class HomeScreen extends StatelessWidget {
                               )
                             ],
                           ),
-        
+
                           // ---Search bar---
                           const SizedBox(height: 20),
                           const MyInputTextField(),
-        
+
                           // ---Categories---
-        
+
                           const SizedBox(height: 20),
                           Row(
                             children: [
@@ -122,9 +122,9 @@ class HomeScreen extends StatelessWidget {
               ),
               // )
             ),
-        
+
             // -- header end --
-        
+
             // ----Trending----
             const SizedBox(height: 10),
             Padding(
@@ -165,23 +165,23 @@ class HomeScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Column(
-                      children: bookData.map((e) => BookTile(
-                        ontap: () {  },
-                        title: e.title!,
-                        coverUrl: e.coverUrl!,
-                        author: e.author!,
-                        price: e.price!,
-                        rating: e.rating!,
-                        totalRating: e.numberofRating!,
+                      children: bookData
+                          .map((e) => BookTile(
+                                ontap: () {},
+                                title: e.title!,
+                                coverUrl: e.coverUrl!,
+                                author: e.author!,
+                                price: e.price!,
+                                rating: e.rating!,
+                                totalRating: e.numberofRating!,
 
-                          // **** might have to be changed later ****
-                        // totalRating: int.parse(e.numberofRating!)
-                      ))
+                                // **** might have to be changed later ****
+                                // totalRating: int.parse(e.numberofRating!)
+                              ))
                           .toList(),
-                          ),
-                      ],
-                    )
-                )
+                    ),
+                  ],
+                ))
           ],
         ),
       ),
