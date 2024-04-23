@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter/widgets.dart';
+
 import 'package:project_7th_bookhub/Models/Data.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/AppBar.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/CategoryWidget.dart';
