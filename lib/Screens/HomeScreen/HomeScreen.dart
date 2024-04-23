@@ -6,6 +6,8 @@ import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/AppBar.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/CategoryWidget.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/SearchBar.dart';
 
+import '../../Components/BookCard.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -27,6 +29,9 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 50),
                       //--AppBar--
                       const HomeAppBar(),
+
+                      // header start
+
                       //-- heading content--
                       const SizedBox(height: 50),
                       Row(
@@ -110,7 +115,40 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           // )
-          )
+          ),
+
+          // -- header end --
+
+          // ----Trending----
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Trending",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: bookData.map((e) => BookCard(
+                      title:  e.title!,
+                      coverUrl: e.coverUrl!,
+                      ontap: (){},
+                    )).toList(),
+                  ),
+                ),
+                ],
+
+            )
+          ),
+
         ],
       ),
     );
