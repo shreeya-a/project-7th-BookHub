@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_7th_bookhub/Config/Themes.dart';
-import 'package:project_7th_bookhub/Screens/WelcomeScreen.dart';
+import 'package:project_7th_bookhub/Screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:get/get.dart';
 
 void main() {

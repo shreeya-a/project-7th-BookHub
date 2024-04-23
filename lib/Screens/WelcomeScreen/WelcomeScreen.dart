@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_7th_bookhub/Components/PrimaryButton.dart';
+import 'package:project_7th_bookhub/Screens/HomeScreen/HomeScreen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -84,7 +86,9 @@ class WelcomeScreen extends StatelessWidget {
            padding: const EdgeInsets.all(8.0),
            child: PrimaryButton(
              btnName: "CONTINUE",
-             onTap: () {},
+             onTap: () {
+               Get.offAll(HomeScreen());
+             },
            )
          )
 
