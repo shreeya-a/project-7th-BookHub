@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_7th_bookhub/Components/BookTile.dart';
 import 'package:project_7th_bookhub/Config/Colors.dart';
 // import 'package:flutter/widgets.dart';
 
 import 'package:project_7th_bookhub/Models/Data.dart';
+import 'package:project_7th_bookhub/Screens/BookDetails/BookDetails.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/AppBar.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/CategoryWidget.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/SearchBar.dart';
@@ -147,7 +149,9 @@ class HomeScreen extends StatelessWidget {
                             .map((e) => BookCard(
                                   title: e.title!,
                                   coverUrl: e.coverUrl!,
-                                  ontap: () {},
+                                  ontap: () {
+                                    Get.to(BookDetails(book: e,));
+                                  },
                                 ))
                             .toList(),
                       ),
@@ -167,7 +171,11 @@ class HomeScreen extends StatelessWidget {
                     Column(
                       children: bookData
                           .map((e) => BookTile(
-                                ontap: () {},
+                                ontap: () {
+                                  // need action to reach page
+                                  // not this
+                                  // Get.to(BookDetails(book: e,));
+                                },
                                 title: e.title!,
                                 coverUrl: e.coverUrl!,
                                 author: e.author!,

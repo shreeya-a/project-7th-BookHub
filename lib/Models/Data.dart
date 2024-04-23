@@ -53,9 +53,8 @@ var bookData = [
       numberofRating: "10,",
       language: "ENG",
       pages: 234,
-      // bookurl:
-      // "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf"
-  ),
+      bookurl:
+      "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf"),
   BookModel(
       id: "3",
       title: "Give and Take",
@@ -71,9 +70,8 @@ var bookData = [
       price: 100,
       language: "ENG",
       pages: 234,
-      // bookurl:
-      // "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf"
-  ),
+      bookurl:
+      "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf"),
   BookModel(
     id: "4",
     title: "When the moon split",
@@ -89,7 +87,7 @@ var bookData = [
     pages: 234,
     language: "ENG",
     numberofRating: "10,",
-    // bookurl:
-    // "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf",
+    bookurl:
+    "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf",
   )
 ];
