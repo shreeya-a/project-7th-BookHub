@@ -1,3 +1,5 @@
+// home page book display on trending
+
 import 'package:flutter/material.dart';
 
 class BookCard extends StatelessWidget {
