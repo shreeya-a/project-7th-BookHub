@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:project_7th_bookhub/Config/Colors.dart';
+import 'package:project_7th_bookhub/Screens/ProfileScreen/ProfileScreen.dart';
 
 
 class HomeAppBar extends StatelessWidget {
@@ -19,7 +22,12 @@ class HomeAppBar extends StatelessWidget {
             color: Theme.of(context).colorScheme.background
           ),
         ),
-        CircleAvatar(
+        InkWell(
+          onTap: (){
+            Get.to(ProfileScreen());
+          },
+        child:CircleAvatar(
+
           backgroundColor: Theme.of(context).colorScheme.background,
           child: const Text(
             "B",
@@ -27,7 +35,8 @@ class HomeAppBar extends StatelessWidget {
               color: primaryColor,
             ),
           ),
-        )
+        ),
+      )
       ],
     );
   }
