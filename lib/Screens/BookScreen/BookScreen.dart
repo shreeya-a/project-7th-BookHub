@@ -1,14 +1,13 @@
 import 'package:project_7th_bookhub/Components/BackButton.dart';
-// import 'package:e_book/Controller/PdfController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../Controller/PdfController.dart';
 
-class BookPage extends StatelessWidget {
+class BookScreen extends StatelessWidget {
   final String bookUrl;
-  const BookPage({super.key, required this.bookUrl});
+  const BookScreen({super.key, required this.bookUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +27,15 @@ class BookPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
+
+      // -- bookmark --
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           pdfController.pdfViewerKey.currentState?.openBookmarkView();
         },
         child: Icon(
           Icons.bookmark,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primary,
         ),
       ),
       body: SfPdfViewer.network(

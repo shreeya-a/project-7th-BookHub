@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../Config/Colors.dart';
+// import '../../Config/Colors.dart';
 import '../../Models/BookModel.dart';
 import 'BookActionBtn.dart';
 import 'HeaderWidget.dart';
@@ -18,7 +18,7 @@ class BookDetails extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(20),
-              color: primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               child: Row(
                 children: [
                   Expanded(
@@ -81,9 +81,11 @@ class BookDetails extends StatelessWidget {
                       ),
                     ],
                   ),
+
+                  // -- open book pdf --
                   const SizedBox(height: 30),
                   BookActionBtn(
-                    // bookUrl: book.bookurl!,
+                    bookUrl: book.bookurl!,
                   ),
                 ],
               ),

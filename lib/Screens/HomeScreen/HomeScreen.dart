@@ -150,7 +150,7 @@ class HomeScreen extends StatelessWidget {
                                   title: e.title!,
                                   coverUrl: e.coverUrl!,
                                   ontap: () {
-                                    // Get.to(BookDetails());
+                                    Get.to(BookDetails(book: e,));
                                   },
                                 ))
                             .toList(),
@@ -171,7 +171,11 @@ class HomeScreen extends StatelessWidget {
                     Column(
                       children: bookData
                           .map((e) => BookTile(
-                                ontap: () {},
+                                ontap: () {
+                                  // need action to reach page
+                                  // not this
+                                  // Get.to(BookDetails(book: e,));
+                                },
                                 title: e.title!,
                                 coverUrl: e.coverUrl!,
                                 author: e.author!,
