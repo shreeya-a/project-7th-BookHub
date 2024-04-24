@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_7th_bookhub/Config/Themes.dart';
+import 'package:project_7th_bookhub/Screens/SplaceScreen/SplaceScreen.dart';
 import 'package:project_7th_bookhub/Screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
     return const GetMaterialApp(
       title: 'BookHub',
       // theme: lightTheme,
-      home:  WelcomeScreen(),
+      // home:  WelcomeScreen(),
+      home:  SplaceScreen(),
     );
   }
 }
