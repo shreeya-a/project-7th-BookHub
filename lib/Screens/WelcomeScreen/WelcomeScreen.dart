@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_7th_bookhub/Components/PrimaryButton.dart';
+import 'package:project_7th_bookhub/Controller/AuthController.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/HomeScreen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -8,6 +9,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.put(AuthController());
     return Scaffold(
      body: Column(
        children: [
@@ -83,11 +85,11 @@ class WelcomeScreen extends StatelessWidget {
          // continue button
          const Spacer(),
          Padding(
-           padding: const EdgeInsets.all(8.0),
+           padding: const EdgeInsets.all(10),
            child: PrimaryButton(
-             btnName: "CONTINUE",
+             btnName: "LOGIN WITH GOOGLE",
              onTap: () {
-               Get.offAll(HomeScreen());
+                authController.signInWithGoogle();
              },
            )
          )

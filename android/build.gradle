@@ -4,6 +4,11 @@ allprojects {
         mavenCentral()
     }
 }
+android {
+    defaultConfig {
+        multiDexEnabled true
+    }
+}
 
 rootProject.buildDir = '../build'
 subprojects {
