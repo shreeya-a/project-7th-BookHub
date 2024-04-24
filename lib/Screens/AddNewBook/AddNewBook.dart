@@ -23,22 +23,22 @@ class AddNewBookPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyBackButton(),
+                    const MyBackButton(),
                     Text(
                       "ADD NEW BOOK",
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Theme.of(context).colorScheme.background,
                           ),
                     ),
-                    SizedBox(height: 70),
+                    const SizedBox(height: 70),
                   ],
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Container(
                   height: 190,
                   width: 150,
@@ -46,12 +46,12 @@ class AddNewBookPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     color: Theme.of(context).colorScheme.background,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     size: 30,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           )
@@ -61,34 +61,42 @@ class AddNewBookPage extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-
             MyTextFormField(
-                  hintText: "Book Title",
-                  icon: Icons.book,
-                  controller: controller,
-                ),
-            SizedBox(height: 10,),
+              hintText: "Book Title",
+              icon: Icons.book,
+              controller: controller,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             MultiLineTextField(
                 hintText: "book des",
-                icon : Icons.format_align_center_outlined,
+                icon: Icons.format_align_center_outlined,
                 controller: controller),
             MyTextFormField(
-                  hintText: "Book Title",
-                  icon: Icons.book,
-                  controller: controller,
-                ),
-            SizedBox(height: 10,), MyTextFormField(
-                  hintText: "Book Title",
-                  icon: Icons.book,
-                  controller: controller,
-                ),
-            SizedBox(height: 10,), MyTextFormField(
-                  hintText: "Book Title",
-                  icon: Icons.book,
-                  controller: controller,
-                ),
-            SizedBox(height: 10,),
-
+              hintText: "Book Title",
+              icon: Icons.book,
+              controller: controller,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            MyTextFormField(
+              hintText: "Book Title",
+              icon: Icons.book,
+              controller: controller,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            MyTextFormField(
+              hintText: "Book Title",
+              icon: Icons.book,
+              controller: controller,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),

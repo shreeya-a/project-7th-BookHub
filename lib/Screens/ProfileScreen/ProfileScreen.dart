@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_7th_bookhub/Components/BackButton.dart';
 import 'package:project_7th_bookhub/Components/BookTile.dart';
 import 'package:project_7th_bookhub/Components/PrimaryButton.dart';
+import 'package:project_7th_bookhub/Controller/AuthController.dart';
 import 'package:project_7th_bookhub/Models/Data.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/HomeScreen.dart';
@@ -14,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+AuthController authController = Get.put(AuthController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -55,7 +56,15 @@ class ProfileScreen extends StatelessWidget {
                               Theme.of(context).colorScheme.background,
                             ),
                           ),
-                          SizedBox(height: 70),
+                // ---- sign out button ---
+                          IconButton(
+                            onPressed: () {
+                              authController.signout();
+                            },
+                            icon: Icon(Icons.exit_to_app ),
+                            color:
+                            Theme.of(context).colorScheme.background,
+                          ),
                         ],
                       ),
                       SizedBox(height: 60),
