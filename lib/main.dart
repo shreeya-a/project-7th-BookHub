@@ -1,9 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_7th_bookhub/Config/Themes.dart';
+import 'package:project_7th_bookhub/Screens/SplaceScreen/SplaceScreen.dart';
 import 'package:project_7th_bookhub/Screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:get/get.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -16,7 +24,8 @@ class MyApp extends StatelessWidget {
     return const GetMaterialApp(
       title: 'BookHub',
       // theme: lightTheme,
-      home:  WelcomeScreen(),
+      // home:  WelcomeScreen(),
+      home:  SplaceScreen(),
     );
   }
 }
