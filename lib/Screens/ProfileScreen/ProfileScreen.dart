@@ -23,7 +23,7 @@ AuthController authController = Get.put(AuthController());
         },
         child: Icon(
           Icons.add,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primary,
         ),
       ),
       body: SingleChildScrollView(
