@@ -74,6 +74,7 @@ class BookController extends GetxController {
     );
 
     await db.collection("Books").add(newBook.toJson());
+    addBookInUserDb(newBook);
     isPostUploading.value = false;
     title.clear();
     description.clear();
@@ -118,6 +119,13 @@ class BookController extends GetxController {
     isPdfUploading.value = false;
   }
 
+  void addBookInUserDb(BookModel book) async {
+    await db
+        .collection("userBook")
+        .doc(fAuth.currentUser!.uid)
+        .collection("Books")
+        .add(book.toJson());
+  }
 
 
 }

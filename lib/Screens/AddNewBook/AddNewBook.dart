@@ -223,6 +223,7 @@ class AddNewBookPage extends StatelessWidget {
                     SizedBox(width: 10),
                     Expanded(
                       child: MyTextFormField(
+                        isNumber: true,
                         hintText: "Audio Len",
                         icon: Icons.audiotrack,
                         controller: bookController.audioLen,
@@ -251,7 +252,7 @@ class AddNewBookPage extends StatelessWidget {
                             ),
                             SizedBox(width: 8),
                             Text(
-                              "CANCLE",
+                              "CANCEL",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
