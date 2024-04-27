@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class MultiLineTextField extends StatelessWidget {
   final String hintText;
-  final IconData icon;
+  // final IconData icon;
   final TextEditingController controller;
   const MultiLineTextField({
     super.key,
     required this.hintText,
     required this.controller,
-    required this.icon,
+    // required this.icon,
   });
 
   @override
@@ -17,12 +17,12 @@ class MultiLineTextField extends StatelessWidget {
       maxLines: 5,
       controller: controller,
       decoration: InputDecoration(
-        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         filled: true,
         hintText: hintText,
-        prefixIcon: Icon(
-          icon
-        ),
+        // prefixIcon: Icon(
+        //   icon
+        // ),
         border: InputBorder.none,
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Theme.of(context).colorScheme.primary), // Define border when focused

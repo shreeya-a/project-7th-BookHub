@@ -17,6 +17,7 @@ class MyTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return  TextFormField(
       controller: controller,
+      keyboardType: isNumber? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
         fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         filled: true,
@@ -26,10 +27,10 @@ class MyTextFormField extends StatelessWidget {
           borderSide: BorderSide(color: Theme.of(context).colorScheme.primary), // Define border when focused
         ),
         prefixIcon: Icon(
-          Icons.book,
+          icon,
           color: Theme.of(context).colorScheme.primary,
         ),
-      ),
-    );
+        ),
+      );
   }
 }
