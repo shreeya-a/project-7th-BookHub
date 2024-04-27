@@ -54,7 +54,9 @@ class BookTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
                     coverUrl,
-                    width: 100,
+                    width: 120,
+                    height: 180,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -89,11 +91,12 @@ class BookTile extends StatelessWidget {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      SvgPicture.asset("Assets/Icons/star.svg"),
                       Text(
-                        rating,
+                        "Rating : $rating ",
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
+                      SvgPicture.asset("Assets/Icons/star.svg"),
+
                     ],
                   )
                 ],

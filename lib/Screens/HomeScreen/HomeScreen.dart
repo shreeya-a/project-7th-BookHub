@@ -42,10 +42,10 @@ class HomeScreen extends StatelessWidget {
                           // header start
 
                           //-- heading content--
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 40),
                           Row(
                             children: [
-                              Text("Good Morining! ",
+                              Text("Hello! ",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
