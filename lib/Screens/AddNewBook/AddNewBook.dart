@@ -96,7 +96,7 @@ class AddNewBookPage extends StatelessWidget {
                   Expanded(
                     child: Obx(
                           () => Container(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: bookController.pdfUrl.value == ""
                               ? Theme.of(context).colorScheme.primary
@@ -114,6 +114,11 @@ class AddNewBookPage extends StatelessWidget {
                           onTap: () {
                             bookController.pickPDF();
                           },
+
+
+                          // ===== upload boom pdf button =======
+
+
                           child: Row(
                             mainAxisAlignment:
                             MainAxisAlignment.center,
@@ -135,6 +140,8 @@ class AddNewBookPage extends StatelessWidget {
                             ],
                           ),
                         )
+
+
                             : InkWell(
                           onTap: () {
                             bookController.pdfUrl.value = "";
