@@ -7,8 +7,8 @@ class BookTile extends StatelessWidget {
   final String author;
   final int price;
   final String rating;
-  final String totalRating;
-  // final int totalRating;
+  final String category;
+
   final VoidCallback ontap;
 
   const BookTile({
@@ -18,7 +18,7 @@ class BookTile extends StatelessWidget {
     required this.author,
     required this.price,
     required this.rating,
-    required this.totalRating,
+    required this.category,
     required this.ontap,
   });
 
@@ -52,7 +52,7 @@ class BookTile extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
+                  child: Image.network(
                     coverUrl,
                     width: 100,
                   ),
@@ -70,7 +70,15 @@ class BookTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text("By : $author",
-                      style: Theme.of(context).textTheme.labelMedium),
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  const SizedBox(height: 5),
+
+                  Text(
+                    "Category : $category",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
                   const SizedBox(height: 5),
                   Text(
                     "Price : $price",
@@ -83,12 +91,9 @@ class BookTile extends StatelessWidget {
                     children: [
                       SvgPicture.asset("Assets/Icons/star.svg"),
                       Text(
+                        "  " +
                         rating,
                         style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        "($totalRating ratings)",
-                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
                   )

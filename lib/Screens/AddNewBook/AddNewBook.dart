@@ -184,9 +184,9 @@ class AddNewBookPage extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 MyTextFormField(
-                  hintText: "About Author",
+                  hintText: "Category",
                   icon: Icons.person,
-                  controller: bookController.aboutAuthor,
+                  controller: bookController.category,
                 ),
                 SizedBox(height: 10),
                 Row(
@@ -224,9 +224,9 @@ class AddNewBookPage extends StatelessWidget {
                     Expanded(
                       child: MyTextFormField(
                         isNumber: true,
-                        hintText: "Audio Len",
-                        icon: Icons.audiotrack,
-                        controller: bookController.audioLen,
+                        hintText: "Rating",
+                        icon: Icons.star,
+                        controller: bookController.rating,
                       ),
                     ),
                   ],

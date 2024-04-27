@@ -15,9 +15,9 @@ class BookController extends GetxController {
   TextEditingController title = TextEditingController();
   TextEditingController description = TextEditingController();
   TextEditingController author = TextEditingController();
-  TextEditingController aboutAuthor = TextEditingController();
+  TextEditingController category = TextEditingController();
   TextEditingController pages = TextEditingController();
-  TextEditingController audioLen = TextEditingController();
+  TextEditingController rating = TextEditingController();
   TextEditingController language = TextEditingController();
   TextEditingController price = TextEditingController();
   ImagePicker imagePicker = ImagePicker();
@@ -30,8 +30,36 @@ class BookController extends GetxController {
   RxBool isImageUploading = false.obs;
   RxBool isPdfUploading = false.obs;
   RxBool isPostUploading = false.obs;
+var bookData = RxList<BookModel>();
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getAllBooks();
 
+  }
+
+  void getAllBooks() async {
+    bookData.clear();
+    successMessage("Book Get Fun");
+    var books = await db.collection("Books").get();
+    for (var book in books.docs) {
+      bookData.add(BookModel.fromJson(book.data()));
+    }
+  }
+
+  // void getUserBook() async {
+  //   currentUserBooks.clear();
+  //   var books = await db
+  //       .collection("userBook")
+  //       .doc(fAuth.currentUser!.uid)
+  //       .collection("Books")
+  //       .get();
+  //   for (var book in books.docs) {
+  //     currentUserBooks.add(BookModel.fromJson(book.data()));
+  //   }
+  // }
 
   void pickImage() async {
     isImageUploading.value = true;
@@ -64,13 +92,12 @@ class BookController extends GetxController {
       coverUrl: imageUrl.value,
       bookurl: pdfUrl.value,
       author: author.text,
-      aboutAuthor: aboutAuthor.text,
+      category: category.text,
       price: int.parse(price.text),
       pages: int.parse(pages.text),
       language: language.text,
-      audioLen: audioLen.text,
-      audioUrl: "",
-      rating: "",
+      // audioLen: audioLen.text,
+      rating: rating.text,
     );
 
     await db.collection("Books").add(newBook.toJson());
@@ -78,15 +105,16 @@ class BookController extends GetxController {
     isPostUploading.value = false;
     title.clear();
     description.clear();
-    aboutAuthor.clear();
+    category.clear();
     pages.clear();
     language.clear();
-    audioLen.clear();
+    rating.clear();
     author.clear();
     price.clear();
     imageUrl.value = "";
     pdfUrl.value = "";
     successMessage("Book added to the db");
+    getAllBooks();
 
   }
 

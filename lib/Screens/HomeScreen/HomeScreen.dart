@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_7th_bookhub/Components/BookTile.dart';
 import 'package:project_7th_bookhub/Config/Colors.dart';
+import 'package:project_7th_bookhub/Controller/BookController.dart';
 // import 'package:flutter/widgets.dart';
 
 import 'package:project_7th_bookhub/Models/Data.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BookController bookController = Get.put(BookController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -144,16 +146,18 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 10),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: bookData
-                            .map((e) => BookCard(
-                                  title: e.title!,
-                                  coverUrl: e.coverUrl!,
-                                  ontap: () {
-                                    Get.to(BookDetails(book: e,));
-                                  },
-                                ))
-                            .toList(),
+                      child: Obx(
+                          () => Row(
+                          children: bookController.bookData
+                              .map((e) => BookCard(
+                            title: e.title!,
+                            coverUrl: e.coverUrl!,
+                            ontap: () {
+                              Get.to(BookDetails(book: e,));
+                            },
+                          ))
+                              .toList(),
+                        ),
                       ),
                     ),
 
@@ -168,26 +172,26 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-                    Column(
-                      children: bookData
+                    Obx(() => Column(
+                      children: bookController.bookData
                           .map((e) => BookTile(
-                                ontap: () {
-                                  // need action to reach page
-                                  // not this
-                                  // Get.to(BookDetails(book: e,));
-                                },
-                                title: e.title!,
-                                coverUrl: e.coverUrl!,
-                                author: e.author!,
-                                price: e.price!,
-                                rating: e.rating!,
-                                totalRating: e.numberofRating!,
+                        ontap: () {
+                          // need action to reach page
+                          // not this
+                          // Get.to(BookDetails(book: e,));
+                        },
+                        title: e.title!,
+                        coverUrl: e.coverUrl!,
+                        author: e.author!,
+                        price: e.price!,
+                        rating: e.rating!,
+                        category: e.category!,
 
-                                // **** might have to be changed later ****
-                                // totalRating: int.parse(e.numberofRating!)
-                              ))
+                        // **** might have to be changed later ****
+                        // totalRating: int.parse(e.numberofRating!)
+                      ))
                           .toList(),
-                    ),
+                    ),)
                   ],
                 ))
           ],

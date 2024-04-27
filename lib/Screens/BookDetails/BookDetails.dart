@@ -30,7 +30,7 @@ class BookDetails extends StatelessWidget {
                       rating: book.rating!,
                       pages: book.pages.toString(),
                       langugae: book.language.toString(),
-                      audioLen: book.audioLen!,
+                      category: book.category!,
                     ),
                   )
                 ],
@@ -75,7 +75,7 @@ class BookDetails extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          book.aboutAuthor!,
+                          book.category!,
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ),

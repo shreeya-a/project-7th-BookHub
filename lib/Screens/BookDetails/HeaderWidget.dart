@@ -12,7 +12,7 @@ class BookDetailsHeader extends StatelessWidget {
   final String rating;
   final String pages;
   final String langugae;
-  final String audioLen;
+  final String category;
   const BookDetailsHeader(
       {super.key,
         required this.coverUrl,
@@ -22,7 +22,7 @@ class BookDetailsHeader extends StatelessWidget {
         required this.rating,
         required this.pages,
         required this.langugae,
-        required this.audioLen});
+        required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class BookDetailsHeader extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
+              child: Image.network(
                 coverUrl,
                 width: 170,
               ),
@@ -61,6 +61,8 @@ class BookDetailsHeader extends StatelessWidget {
             color: Theme.of(context).colorScheme.background,
           ),
         ),
+        SizedBox(height: 20),
+
         Text(
           "Author : $author",
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
@@ -131,13 +133,13 @@ class BookDetailsHeader extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Audio",
+                  "Category",
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Theme.of(context).colorScheme.background,
                   ),
                 ),
                 Text(
-                  audioLen,
+                  category,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.background,
                   ),

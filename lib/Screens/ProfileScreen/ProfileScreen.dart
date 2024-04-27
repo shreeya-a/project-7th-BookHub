@@ -3,6 +3,7 @@ import 'package:project_7th_bookhub/Components/BackButton.dart';
 import 'package:project_7th_bookhub/Components/BookTile.dart';
 import 'package:project_7th_bookhub/Components/PrimaryButton.dart';
 import 'package:project_7th_bookhub/Controller/AuthController.dart';
+import 'package:project_7th_bookhub/Controller/BookController.dart';
 import 'package:project_7th_bookhub/Models/Data.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/HomeScreen.dart';
@@ -16,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 AuthController authController = Get.put(AuthController());
+BookController bookController = Get.put(BookController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -44,7 +46,6 @@ AuthController authController = Get.put(AuthController());
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-
                           MyBackButton(),
                           Text(
                             "Profile",
@@ -120,14 +121,14 @@ AuthController authController = Get.put(AuthController());
                   ),
                   SizedBox(height: 20),
                   Column(
-                      children: bookData
+                      children: bookController.bookData
                           .map((e) => BookTile(
                         title: e.title!,
                         coverUrl: e.coverUrl!,
                         author: e.author!,
                         price: e.price!,
                         rating: e.rating!,
-                        totalRating: e.numberofRating!,
+                        category: e.category!,
                         ontap: () {},
                       ))
                           .toList(),
