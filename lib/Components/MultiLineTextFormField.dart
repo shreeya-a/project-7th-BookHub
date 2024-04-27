@@ -17,7 +17,7 @@ class MultiLineTextField extends StatelessWidget {
       maxLines: 5,
       controller: controller,
       decoration: InputDecoration(
-        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         filled: true,
         hintText: hintText,
         // prefixIcon: Icon(

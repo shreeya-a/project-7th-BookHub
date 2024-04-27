@@ -17,6 +17,7 @@ class MyTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return  TextFormField(
       controller: controller,
+      keyboardType: isNumber? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
         fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         filled: true,

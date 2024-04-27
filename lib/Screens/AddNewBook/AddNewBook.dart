@@ -65,11 +65,11 @@ class AddNewBookPage extends StatelessWidget {
                               child: Center(
                                 child: bookController.isImageUploading.value
                                     ? CircularProgressIndicator(
-                                  color: primaryColor,
+                                  color: Theme.of(context).colorScheme.primary,
                                 )
                                     : bookController.imageUrl.value == ""
                                     ? Image.asset(
-                                    "Assets/Icons/addImage.png")
+                                    "Assets/Icons/addImage4.png")
                                     : ClipRRect(
                                   borderRadius:
                                   BorderRadius.circular(10),
@@ -272,9 +272,11 @@ class AddNewBookPage extends StatelessWidget {
                               color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: bookController.isPdfUploading.value
+                            child: bookController.isPostUploading.value
                                 ? Center(
-                              child: CircularProgressIndicator(),
+                              child: CircularProgressIndicator(
+                                color: backgroundColor,
+                              ),
                             )
                                 : InkWell(
                               onTap: () {

@@ -29,7 +29,7 @@ class BookController extends GetxController {
   int index = 0;
   RxBool isImageUploading = false.obs;
   RxBool isPdfUploading = false.obs;
-  RxBool isPostUploading = true.obs;
+  RxBool isPostUploading = false.obs;
 
 
 
@@ -74,7 +74,6 @@ class BookController extends GetxController {
     );
 
     await db.collection("Books").add(newBook.toJson());
-
     isPostUploading.value = false;
     title.clear();
     description.clear();
