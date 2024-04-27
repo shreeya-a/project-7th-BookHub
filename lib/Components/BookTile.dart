@@ -91,7 +91,6 @@ class BookTile extends StatelessWidget {
                     children: [
                       SvgPicture.asset("Assets/Icons/star.svg"),
                       Text(
-                        "  " +
                         rating,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),

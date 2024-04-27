@@ -19,6 +19,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BookController bookController = Get.put(BookController());
+    bookController.getUserBook();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -147,15 +149,17 @@ class HomeScreen extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Obx(
-                          () => Row(
+                        () => Row(
                           children: bookController.bookData
                               .map((e) => BookCard(
-                            title: e.title!,
-                            coverUrl: e.coverUrl!,
-                            ontap: () {
-                              Get.to(BookDetails(book: e,));
-                            },
-                          ))
+                                    title: e.title!,
+                                    coverUrl: e.coverUrl!,
+                                    ontap: () {
+                                      Get.to(BookDetails(
+                                        book: e,
+                                      ));
+                                    },
+                                  ))
                               .toList(),
                         ),
                       ),
@@ -172,26 +176,25 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-                    Obx(() => Column(
-                      children: bookController.bookData
-                          .map((e) => BookTile(
-                        ontap: () {
-                          // need action to reach page
-                          // not this
-                          // Get.to(BookDetails(book: e,));
-                        },
-                        title: e.title!,
-                        coverUrl: e.coverUrl!,
-                        author: e.author!,
-                        price: e.price!,
-                        rating: e.rating!,
-                        category: e.category!,
-
-                        // **** might have to be changed later ****
-                        // totalRating: int.parse(e.numberofRating!)
-                      ))
-                          .toList(),
-                    ),)
+                    Obx(
+                      () => Column(
+                        children: bookController.bookData
+                            .map(
+                              (e) => BookTile(
+                                ontap: () {
+                                  Get.to(BookDetails(book: e));
+                                },
+                                title: e.title!,
+                                coverUrl: e.coverUrl!,
+                                author: e.author!,
+                                price: e.price!,
+                                rating: e.rating!,
+                                category: e.category!,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    )
                   ],
                 ))
           ],

@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:project_7th_bookhub/Components/BackButton.dart';
 import 'package:project_7th_bookhub/Components/BookTile.dart';
-import 'package:project_7th_bookhub/Components/PrimaryButton.dart';
 import 'package:project_7th_bookhub/Controller/AuthController.dart';
 import 'package:project_7th_bookhub/Controller/BookController.dart';
-import 'package:project_7th_bookhub/Models/Data.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
-import 'package:project_7th_bookhub/Screens/HomeScreen/HomeScreen.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-AuthController authController = Get.put(AuthController());
-BookController bookController = Get.put(BookController());
+    AuthController authController = Get.put(AuthController());
+    BookController bookController = Get.put(BookController());
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -36,7 +32,7 @@ BookController bookController = Get.put(BookController());
               padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
               color: Theme.of(context).colorScheme.primary,
               child:
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -53,18 +49,17 @@ BookController bookController = Get.put(BookController());
                                 .textTheme
                                 .bodyLarge
                                 ?.copyWith(
-                              color:
-                              Theme.of(context).colorScheme.background,
-                            ),
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                ),
                           ),
-                // ---- sign out button ---
+                          // ---- sign out button ---
                           IconButton(
                             onPressed: () {
                               authController.signout();
                             },
-                            icon: Icon(Icons.exit_to_app ),
-                            color:
-                            Theme.of(context).colorScheme.background,
+                            icon: Icon(Icons.exit_to_app),
+                            color: Theme.of(context).colorScheme.background,
                           ),
                         ],
                       ),
@@ -82,8 +77,8 @@ BookController bookController = Get.put(BookController());
                           height: 120,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: Image.asset(
-                              "Assets/Images/boundraries.jpg",
+                            child: Image.network(
+                              "${authController.auth.currentUser!.photoURL}",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -91,18 +86,19 @@ BookController bookController = Get.put(BookController());
                       ),
                       SizedBox(height: 20),
                       Text(
-                       "Anu Prajapati",
+                        "${authController.auth.currentUser!.displayName}",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Theme.of(context).colorScheme.background),
                       ),
                       Text(
-                        "prajapatianu433@gmail.com",
+                        "${authController.auth.currentUser!.email}",
+
                         style:
-                        Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onPrimaryContainer,
-                        ),
+                            Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                ),
                       ),
                     ],
                   ),
@@ -120,19 +116,22 @@ BookController bookController = Get.put(BookController());
                     ],
                   ),
                   SizedBox(height: 20),
-                  Column(
-                      children: bookController.bookData
+
+                  Obx(
+                    () => Column(
+                      children: bookController.currentUserBooks
                           .map((e) => BookTile(
-                        title: e.title!,
-                        coverUrl: e.coverUrl!,
-                        author: e.author!,
-                        price: e.price!,
-                        rating: e.rating!,
-                        category: e.category!,
-                        ontap: () {},
-                      ))
+                                title: e.title!,
+                                coverUrl: e.coverUrl!,
+                                author: e.author!,
+                                price: e.price!,
+                                rating: e.rating!,
+                                category: e.category!,
+                                ontap: () {},
+                              ))
                           .toList(),
                     ),
+                  ),
                 ],
               ),
             ),

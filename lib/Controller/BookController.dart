@@ -31,6 +31,7 @@ class BookController extends GetxController {
   RxBool isPdfUploading = false.obs;
   RxBool isPostUploading = false.obs;
 var bookData = RxList<BookModel>();
+var currentUserBooks = RxList<BookModel>();
 
   @override
   void onInit() {
@@ -49,17 +50,17 @@ var bookData = RxList<BookModel>();
     }
   }
 
-  // void getUserBook() async {
-  //   currentUserBooks.clear();
-  //   var books = await db
-  //       .collection("userBook")
-  //       .doc(fAuth.currentUser!.uid)
-  //       .collection("Books")
-  //       .get();
-  //   for (var book in books.docs) {
-  //     currentUserBooks.add(BookModel.fromJson(book.data()));
-  //   }
-  // }
+  void getUserBook() async {
+    currentUserBooks.clear();
+    var books = await db
+        .collection("userBook")
+        .doc(fAuth.currentUser!.uid)
+        .collection("Books")
+        .get();
+    for (var book in books.docs) {
+      currentUserBooks.add(BookModel.fromJson(book.data()));
+    }
+  }
 
   void pickImage() async {
     isImageUploading.value = true;
@@ -85,6 +86,7 @@ var bookData = RxList<BookModel>();
 
   void createBook() async {
     isPostUploading.value = true;
+    index ++;
     var newBook = BookModel(
       id: "$index",
       title: title.text,
@@ -115,6 +117,7 @@ var bookData = RxList<BookModel>();
     pdfUrl.value = "";
     successMessage("Book added to the db");
     getAllBooks();
+    getUserBook();
 
   }
 
@@ -153,6 +156,7 @@ var bookData = RxList<BookModel>();
         .doc(fAuth.currentUser!.uid)
         .collection("Books")
         .add(book.toJson());
+
   }
 
 
