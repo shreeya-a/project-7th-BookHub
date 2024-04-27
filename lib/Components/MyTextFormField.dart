@@ -26,10 +26,10 @@ class MyTextFormField extends StatelessWidget {
           borderSide: BorderSide(color: Theme.of(context).colorScheme.primary), // Define border when focused
         ),
         prefixIcon: Icon(
-          Icons.book,
+          icon,
           color: Theme.of(context).colorScheme.primary,
         ),
-      ),
-    );
+        ),
+      );
   }
 }

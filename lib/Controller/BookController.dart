@@ -1,7 +1,4 @@
-
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +6,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:uuid/uuid.dart';
+import '../Config/Messages.dart';
+import '../Models/BookModel.dart';
 
 class BookController extends GetxController {
   TextEditingController title = TextEditingController();
@@ -26,18 +26,23 @@ class BookController extends GetxController {
   final fAuth = FirebaseAuth.instance;
   RxString imageUrl = "".obs;
   RxString pdfUrl = "".obs;
+  int index = 0;
+  RxBool isImageUploading = false.obs;
+  RxBool isPdfUploading = false.obs;
+  RxBool isPostUploading = true.obs;
 
-  // pick image
+
+
   void pickImage() async {
+    isImageUploading.value = true;
     final XFile? image =
     await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       print(image.path);
       uploadImageToFirebase(File(image.path));
     }
+    isImageUploading.value = false;
   }
-
-// upload to firebase
 
   void uploadImageToFirebase(File image) async {
     var uuid = Uuid();
@@ -47,10 +52,46 @@ class BookController extends GetxController {
     String downloadURL = await storageRef.getDownloadURL();
     imageUrl.value = downloadURL;
     print("Download URL: $downloadURL");
+    isImageUploading.value = false;
   }
 
+  void createBook() async {
+    isPostUploading.value = true;
+    var newBook = BookModel(
+      id: "$index",
+      title: title.text,
+      description: description.text,
+      coverUrl: imageUrl.value,
+      bookurl: pdfUrl.value,
+      author: author.text,
+      aboutAuthor: aboutAuthor.text,
+      price: int.parse(price.text),
+      pages: int.parse(pages.text),
+      language: language.text,
+      audioLen: audioLen.text,
+      audioUrl: "",
+      rating: "",
+    );
+
+    await db.collection("Books").add(newBook.toJson());
+
+    isPostUploading.value = false;
+    title.clear();
+    description.clear();
+    aboutAuthor.clear();
+    pages.clear();
+    language.clear();
+    audioLen.clear();
+    author.clear();
+    price.clear();
+    imageUrl.value = "";
+    pdfUrl.value = "";
+    successMessage("Book added to the db");
+
+  }
 
   void pickPDF() async {
+    isPdfUploading.value = true;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -75,6 +116,9 @@ class BookController extends GetxController {
     } else {
       print("No file selected");
     }
+    isPdfUploading.value = false;
   }
+
+
 
 }
