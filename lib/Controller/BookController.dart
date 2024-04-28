@@ -44,7 +44,7 @@ var currentUserBooks = RxList<BookModel>();
 
   void getAllBooks() async {
     bookData.clear();
-    successMessage("Book Get Fun");
+    // successMessage("Book Get Fun");
     var books = await db.collection("Books").get();
     for (var book in books.docs) {
       bookData.add(BookModel.fromJson(book.data()));
@@ -119,7 +119,7 @@ var currentUserBooks = RxList<BookModel>();
     successMessage("Book added to the db");
     getAllBooks();
     getUserBook();
-    // Get.to(ProfileScreen());
+    Get.to(ProfileScreen());
 
   }
 
