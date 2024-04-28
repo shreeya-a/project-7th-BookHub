@@ -74,7 +74,9 @@ class ProfileScreen extends StatelessWidget {
                                       TextButton(
                                         onPressed: () {
                                           Navigator.of(context).pop(); // Close the dialog
-                                          authController.signout(); // Perform logout
+                                          Future.delayed(Duration.zero, () {
+                                            authController.signout();
+                                          });// Perform logout
                                         },
                                         child: Text('Logout'),
                                       ),
@@ -86,13 +88,7 @@ class ProfileScreen extends StatelessWidget {
                             icon: Icon(Icons.exit_to_app),
                             color: Theme.of(context).colorScheme.background,
                           ),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     authController.signout();
-                          //   },
-                          //   icon: Icon(Icons.exit_to_app),
-                          //   color: Theme.of(context).colorScheme.background,
-                          // ),
+
                         ],
                       ),
                       SizedBox(height: 60),
@@ -120,16 +116,21 @@ class ProfileScreen extends StatelessWidget {
                       Text(
                         "${authController.auth.currentUser!.displayName}",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.background),
+                            color: Theme.of(context).colorScheme.background,
+                          fontSize: 20
+
+                        ),
+
                       ),
+                      SizedBox(height: 10,),
                       Text(
                         "${authController.auth.currentUser!.email}",
 
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer,
+                                 color: Colors.white54,
+                              fontSize: 15
+
                                 ),
                       ),
                     ],
@@ -153,15 +154,16 @@ class ProfileScreen extends StatelessWidget {
                     () => Column(
                       children: bookController.currentUserBooks
                           .map((e) => BookTile(
-                        ontap: () {
-                          Get.to(BookDetails(book: e));
-                        },
+
                                 title: e.title!,
                                 coverUrl: e.coverUrl!,
                                 author: e.author!,
                                 price: e.price!,
                                 rating: e.rating!,
                                 category: e.category!,
+                        ontap: () {
+                          Get.to(BookDetails(book: e));
+                        },
 
                               ))
                           .toList(),
