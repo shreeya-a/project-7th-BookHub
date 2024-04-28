@@ -33,6 +33,8 @@ class BookController extends GetxController {
 var bookData = RxList<BookModel>();
 var currentUserBooks = RxList<BookModel>();
 
+  RxList<Map<String, dynamic>> searchResults = <Map<String, dynamic>>[].obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -159,5 +161,22 @@ var currentUserBooks = RxList<BookModel>();
 
   }
 
+  // Method to search books based on the search query
+  void searchBooks(String query) async {
+    // Query Firebase Firestore to search for books
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('books')
+        .where('title', isGreaterThanOrEqualTo: query)
+        .where('title', isLessThanOrEqualTo: query + '\uf8ff')
+        .get();
 
+    // Extract search results from the query snapshot
+    List<Map<String, dynamic>> results = [];
+    querySnapshot.docs.forEach((doc) {
+      results.add(doc.data()as Map<String, dynamic>);
+    });
+
+    // Update searchResults with the search results
+    searchResults.assignAll(results);
+  }
 }
