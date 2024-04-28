@@ -49,7 +49,7 @@ class BookDetails extends StatelessWidget {
                       Text(
                         "About book",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
                           color: Colors.black54,
                           fontWeight: FontWeight.bold,
                           // fontStyle: FontStyle.italic,

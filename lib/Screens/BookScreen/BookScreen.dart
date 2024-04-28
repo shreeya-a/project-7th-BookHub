@@ -7,6 +7,7 @@ import '../../Controller/PdfController.dart';
 
 class BookScreen extends StatelessWidget {
   final String bookUrl;
+
   const BookScreen({super.key, required this.bookUrl});
 
   @override
@@ -19,7 +20,7 @@ class BookScreen extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          "Book title",
+          "Book",
           style: Theme.of(context)
               .textTheme
               .headlineMedium

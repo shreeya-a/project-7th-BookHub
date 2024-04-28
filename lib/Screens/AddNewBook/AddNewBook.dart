@@ -234,37 +234,38 @@ class AddNewBookPage extends StatelessWidget {
                 SizedBox(height: 20),
                 Row(
                   children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.red,
-                            )),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              "CANCEL",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
+                    //cancel btn
+                    // Expanded(
+                    //   child: Container(
+                    //     padding: EdgeInsets.all(16),
+                    //     decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //         border: Border.all(
+                    //           width: 2,
+                    //           color: Colors.red,
+                    //         )),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: [
+                    //         Icon(
+                    //           Icons.close,
+                    //           color: Colors.red,
+                    //         ),
+                    //         SizedBox(width: 8),
+                    //         Text(
+                    //           "CANCEL",
+                    //           style: Theme.of(context)
+                    //               .textTheme
+                    //               .bodyLarge
+                    //               ?.copyWith(
+                    //             color: Colors.red,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(width: 10),
                     Expanded(
                         child: Obx(
                               () => Container(

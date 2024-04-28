@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     BookController bookController = Get.put(BookController());
     bookController.getUserBook();
     return Scaffold(
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           SizedBox(height: 30),
                           HomeAppBar(),
-                          SizedBox(height: 50),
+                          SizedBox(height: 40),
                           Row(
                             children: [
                               Text(
@@ -53,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "Nitish",
+                                "Bibliophile",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium
@@ -122,6 +123,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
+
             Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
@@ -129,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Trending",
+                        "Recently added",
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
@@ -140,6 +142,7 @@ class HomeScreen extends StatelessWidget {
                       child: Obx(
                             () => Row(
                           children: bookController.bookData
+                          .take(10)
                               .map(
                                 (e) => BookCard(
                               title: e.title!,
@@ -154,7 +157,7 @@ class HomeScreen extends StatelessWidget {
                               .toList(),
                         ),
                       )),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Row(
                     children: [
                       Text(

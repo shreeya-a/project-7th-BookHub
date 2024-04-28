@@ -145,7 +145,12 @@ class ProfileScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text("Your Books",
-                          style: Theme.of(context).textTheme.labelMedium),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                          ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 20),
