@@ -119,7 +119,8 @@ var currentUserBooks = RxList<BookModel>();
     successMessage("Book added to the db");
     getAllBooks();
     getUserBook();
-    Get.to(ProfileScreen());
+    Get.back();
+    // Get.to(ProfileScreen());
 
   }
 

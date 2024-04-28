@@ -17,6 +17,18 @@ class MyTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return  TextFormField(
       controller: controller,
+      validator: (value) {
+        if (isNumber) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a value';
+          }
+          final rating = int.tryParse(value);
+          if (rating == null || rating < 1 || rating > 10) {
+            return 'Rating must be between 1 and 10';
+          }
+        }
+        return null;
+      },
       keyboardType: isNumber? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
         fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
