@@ -6,6 +6,8 @@ import 'package:project_7th_bookhub/Controller/BookController.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
 import 'package:get/get.dart';
 
+import '../BookDetails/BookDetails.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -56,11 +58,41 @@ class ProfileScreen extends StatelessWidget {
                           // ---- sign out button ---
                           IconButton(
                             onPressed: () {
-                              authController.signout();
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Logout'),
+                                    content: Text('Are you sure you want to logout?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(); // Close the dialog
+                                        },
+                                        child: Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(); // Close the dialog
+                                          authController.signout(); // Perform logout
+                                        },
+                                        child: Text('Logout'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             icon: Icon(Icons.exit_to_app),
                             color: Theme.of(context).colorScheme.background,
                           ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     authController.signout();
+                          //   },
+                          //   icon: Icon(Icons.exit_to_app),
+                          //   color: Theme.of(context).colorScheme.background,
+                          // ),
                         ],
                       ),
                       SizedBox(height: 60),
@@ -121,13 +153,16 @@ class ProfileScreen extends StatelessWidget {
                     () => Column(
                       children: bookController.currentUserBooks
                           .map((e) => BookTile(
+                        ontap: () {
+                          Get.to(BookDetails(book: e));
+                        },
                                 title: e.title!,
                                 coverUrl: e.coverUrl!,
                                 author: e.author!,
                                 price: e.price!,
                                 rating: e.rating!,
                                 category: e.category!,
-                                ontap: () {},
+
                               ))
                           .toList(),
                     ),

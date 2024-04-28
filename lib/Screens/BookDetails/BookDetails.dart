@@ -36,17 +36,24 @@ class BookDetails extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+                  // const SizedBox(height: 10),
                   Row(
                     children: [
                       Text(
                         "About book",
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold,
+                          // fontStyle: FontStyle.italic,
+                        )
                       ),
                     ],
                   ),
@@ -54,33 +61,30 @@ class BookDetails extends StatelessWidget {
                   Row(
                     children: [
                       Flexible(
-                        child: Text(
-                          book.description!,
-                          style: Theme.of(context).textTheme.labelMedium,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            book.description!,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Text(
-                        "About book",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          book.category!,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // const SizedBox(height: 8),
+                  // Row(
+                  //   children: [
+                  //     Flexible(
+                  //       child: Text(
+                  //         book.category!,
+                  //         style: Theme.of(context).textTheme.labelMedium,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
 
                   // -- open book pdf --
                   const SizedBox(height: 30),

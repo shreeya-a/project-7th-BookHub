@@ -13,6 +13,7 @@ import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/SearchBar.dart';
 
 import '../../Components/BookCard.dart';
 
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -20,13 +21,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     BookController bookController = Get.put(BookController());
     bookController.getUserBook();
-
     return Scaffold(
+
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
               color: Theme.of(context).colorScheme.primary,
               // height: 500,
               child: Expanded(
@@ -35,61 +36,56 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          const SizedBox(height: 50),
-                          //--AppBar--
-                          const HomeAppBar(),
-
-                          // header start
-
-                          //-- heading content--
-                          const SizedBox(height: 40),
+                          SizedBox(height: 30),
+                          HomeAppBar(),
+                          SizedBox(height: 50),
                           Row(
                             children: [
-                              Text("Hello! ",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background,
-                                      )),
-                              Text("Bibliophile",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background,
-                                      ))
+                              Text(
+                                "Good Morining✌️",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .background,
+                                ),
+                              ),
+                              Text(
+                                "Nitish",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium
+                                    ?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .background,
+                                ),
+                              ),
                             ],
                           ),
-                          const SizedBox(height: 5),
+                          SizedBox(height: 5),
                           Row(
                             children: [
                               Flexible(
                                 child: Text(
-                                    "Time to read a book and enhance your knowledge",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall
-                                        ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                        )),
-                              )
+                                  "Time to read book and enhance your knowledge",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall
+                                      ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-
-                          // ---Search bar---
-                          const SizedBox(height: 20),
-                          const MyInputTextField(),
-
-                          // ---Categories---
-
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20),
+                          MyInputTextField(),
+                          SizedBox(height: 20),
                           Row(
                             children: [
                               Text(
@@ -98,105 +94,96 @@ class HomeScreen extends StatelessWidget {
                                     .textTheme
                                     .labelMedium
                                     ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .background,
+                                ),
                               ),
                             ],
                           ),
-                          // Categories types
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10),
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: categoryData
                                   .map(
                                     (e) => CategoryWidget(
-                                        iconPath: e["icon"]!,
-                                        btnName: e["label"]!),
-                                  )
+                                    iconPath: e["icon"]!,
+                                    btnName: e["label"]!),
+                              )
                                   .toList(),
                             ),
-                          ),
-                          const SizedBox(height: 20),
+                          )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-              // )
             ),
-
-            // -- header end --
-
-            // ----Trending----
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Trending",
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    SingleChildScrollView(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Trending",
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Obx(
-                        () => Row(
+                            () => Row(
                           children: bookController.bookData
-                              .map((e) => BookCard(
-                                    title: e.title!,
-                                    coverUrl: e.coverUrl!,
-                                    ontap: () {
-                                      Get.to(BookDetails(
-                                        book: e,
-                                      ));
-                                    },
-                                  ))
+                              .map(
+                                (e) => BookCard(
+                              title: e.title!,
+                              coverUrl: e.coverUrl!,
+                              ontap: () {
+                                Get.to(BookDetails(
+                                  book: e,
+                                ));
+                              },
+                            ),
+                          )
                               .toList(),
                         ),
+                      )),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text(
+                        "Your Interests",
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
-                    ),
-
-                    // --- Your Interest section ----
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Text(
-                          "Your Interest",
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Obx(
-                      () => Column(
-                        children: bookController.bookData
-                            .map(
-                              (e) => BookTile(
-                                ontap: () {
-                                  Get.to(BookDetails(book: e));
-                                },
-                                title: e.title!,
-                                coverUrl: e.coverUrl!,
-                                author: e.author!,
-                                price: e.price!,
-                                rating: e.rating!,
-                                category: e.category!,
-                              ),
-                            )
-                            .toList(),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Obx(() => Column(
+                    children: bookController.bookData
+                        .map(
+                          (e) => BookTile(
+                        ontap: () {
+                          Get.to(BookDetails(book: e));
+                        },
+                        title: e.title!,
+                        coverUrl: e.coverUrl!,
+                        author: e.author!,
+                        price: e.price!,
+                        rating: e.rating!,
+                        category: e.category!,
                       ),
                     )
-                  ],
-                ))
+                        .toList(),
+                  ))
+                ],
+              ),
+            ),
           ],
         ),
       ),
