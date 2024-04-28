@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:project_7th_bookhub/Screens/ProfileScreen/ProfileScreen.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
 import '../Config/Messages.dart';
@@ -43,7 +44,7 @@ var currentUserBooks = RxList<BookModel>();
 
   void getAllBooks() async {
     bookData.clear();
-    successMessage("Book Get Fun");
+    // successMessage("Book Get Fun");
     var books = await db.collection("Books").get();
     for (var book in books.docs) {
       bookData.add(BookModel.fromJson(book.data()));
@@ -118,6 +119,8 @@ var currentUserBooks = RxList<BookModel>();
     successMessage("Book added to the db");
     getAllBooks();
     getUserBook();
+    Get.back();
+    // Get.to(ProfileScreen());
 
   }
 
