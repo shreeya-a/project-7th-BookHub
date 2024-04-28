@@ -165,7 +165,7 @@ var currentUserBooks = RxList<BookModel>();
   void searchBooks(String query) async {
     // Query Firebase Firestore to search for books
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('books')
+        .collection('Books')
         .where('title', isGreaterThanOrEqualTo: query)
         .where('title', isLessThanOrEqualTo: query + '\uf8ff')
         .get();
@@ -175,6 +175,7 @@ var currentUserBooks = RxList<BookModel>();
     querySnapshot.docs.forEach((doc) {
       results.add(doc.data()as Map<String, dynamic>);
     });
+    print(results);
 
     // Update searchResults with the search results
     searchResults.assignAll(results);

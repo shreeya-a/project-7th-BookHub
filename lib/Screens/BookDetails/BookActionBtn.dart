@@ -18,7 +18,7 @@ class BookActionBtn extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(15)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
             onTap: () {
@@ -27,6 +27,8 @@ class BookActionBtn extends StatelessWidget {
               ));
             },
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+
               children: [
                 SvgPicture.asset("Assets/Icons/book.svg"),
                 SizedBox(width: 10),
@@ -40,27 +42,7 @@ class BookActionBtn extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            width: 3,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          Row(
-            children: [
-              SvgPicture.asset("Assets/Icons/playe.svg"),
-              SizedBox(width: 10),
-              Text(
-                "PLAY BOOK",
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.background,
-                  letterSpacing: 1.5,
-                ),
-              ),
-            ],
-          )
+
         ],
       ),
     );

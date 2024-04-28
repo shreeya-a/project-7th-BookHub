@@ -6,6 +6,8 @@ import 'package:project_7th_bookhub/Controller/BookController.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
 import 'package:get/get.dart';
 
+import '../BookDetails/BookDetails.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -127,7 +129,11 @@ class ProfileScreen extends StatelessWidget {
                                 price: e.price!,
                                 rating: e.rating!,
                                 category: e.category!,
-                                ontap: () {},
+                                ontap: () {
+
+                                  Get.to(BookDetails(book: e));
+
+                                },
                               ))
                           .toList(),
                     ),
