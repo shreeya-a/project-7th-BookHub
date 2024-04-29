@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "Good Morining✌️",
+                                "Welcome!!",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
