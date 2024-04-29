@@ -27,7 +27,10 @@ class BookController extends GetxController {
   final fAuth = FirebaseAuth.instance;
   RxString imageUrl = "".obs;
   RxString pdfUrl = "".obs;
-  int index = 0;
+
+  var bookPdfUrl = "".obs; // Observable for the book PDF URL
+
+  // int index = 0;
   RxBool isImageUploading = false.obs;
   RxBool isPdfUploading = false.obs;
   RxBool isPostUploading = false.obs;
@@ -87,9 +90,9 @@ var currentUserBooks = RxList<BookModel>();
 
   void createBook() async {
     isPostUploading.value = true;
-    index ++;
+    // index ++;
     var newBook = BookModel(
-      id: "$index",
+      // id: "$index",
       title: title.text,
       description: description.text,
       coverUrl: imageUrl.value,
@@ -102,6 +105,15 @@ var currentUserBooks = RxList<BookModel>();
       // audioLen: audioLen.text,
       rating: rating.text,
     );
+
+    // Use doc() without passing any arguments to generate a unique ID
+    var documentReference = db.collection("Books").doc();
+
+    // Get the automatically generated ID
+    var newBookId = documentReference.id;
+
+    // Set the ID in the BookModel
+    newBook.id = newBookId;
 
     await db.collection("Books").add(newBook.toJson());
     addBookInUserDb(newBook);
@@ -161,6 +173,11 @@ var currentUserBooks = RxList<BookModel>();
         .add(book.toJson());
 
   }
+// Function to clear the PDF URL
+  void clearBookPdfUrl() {
+    bookPdfUrl.value = "";
+    pdfUrl.value = "";
 
+  }
 
 }

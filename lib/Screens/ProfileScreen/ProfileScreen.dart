@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import '../../Components/ProfileBookTile.dart';
 import '../BookDetails/BookDetails.dart';
 import '../BookDetails/UserBookDetails.dart';
+import '../UpdateBookDetails/EditBookDetailsScreen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -174,6 +175,7 @@ class ProfileScreen extends StatelessWidget {
                           },
                           onEdit: () {
                             // Handle edit action for the book 'e'
+                            Get.to(() => EditBookDetails(book: e,));
                           },
                           onDelete: () {
                             // Handle delete action for the book 'e'
