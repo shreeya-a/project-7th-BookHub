@@ -6,10 +6,8 @@ import 'package:project_7th_bookhub/Controller/AuthController.dart';
 import 'package:project_7th_bookhub/Controller/BookController.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
 import 'package:get/get.dart';
-
 import '../../Components/ProfileBookTile.dart';
 import '../BookDetails/BookDetails.dart';
-import '../BookDetails/UserBookDetails.dart';
 import '../UpdateBookDetails/EditBookDetailsScreen.dart';
 
 class ProfileScreen extends StatelessWidget {

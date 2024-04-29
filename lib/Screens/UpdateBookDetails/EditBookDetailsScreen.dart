@@ -70,37 +70,31 @@ class EditBookDetails extends StatelessWidget {
                           onTap: () {
                             bookController.pickImage();
                           },
-                          child: Container(
-                            height: 190,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Theme.of(context).colorScheme.background,
-                            ),
-                            child: Center(
-                              child: Obx(
-                                    () => bookController.isImageUploading.value
+                          child: Obx(
+                                () => Container(
+                              height: 190,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Theme.of(context).colorScheme.background,
+                              ),
+                              child: Center(
+                                child: bookController.isImageUploading.value
                                     ? CircularProgressIndicator(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary,
+                                  color: Theme.of(context).colorScheme.primary,
                                 )
                                     : imageUrl.isEmpty
-                                    ? Image.asset(
-                                    "Assets/Icons/addImage4.png")
-                                    : imageUrl.startsWith('http') ||
-                                    imageUrl.startsWith('https')
+                                    ? Image.asset("Assets/Icons/addImage4.png")
+                                    : imageUrl.startsWith('http') || imageUrl.startsWith('https')
                                     ? ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10),
                                   child: Image.network(
                                     imageUrl,
                                     fit: BoxFit.cover,
                                   ),
                                 )
                                     : ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10),
                                   child: Image.file(
                                     File(imageUrl),
                                     fit: BoxFit.cover,
@@ -319,7 +313,7 @@ class EditBookDetails extends StatelessWidget {
                               );
                               bookController.clearBookPdfUrl();
                               // Navigate back
-                              // Get.back();
+                              Get.back();
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
