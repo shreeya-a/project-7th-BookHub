@@ -173,6 +173,8 @@ var currentUserBooks = RxList<BookModel>();
         .add(book.toJson());
 
   }
+
+
 // Function to clear the PDF URL
   void clearBookPdfUrl() {
     bookPdfUrl.value = "";
@@ -193,14 +195,17 @@ var currentUserBooks = RxList<BookModel>();
       String imageUrl,
       String pdfUrl,
       ) async {
-    // Query Firestore to find the document ID corresponding to the book ID
-    var querySnapshot = await db.collection("Books").where("id", isEqualTo: id).get();
+    // Query the document from the "Books" collection
+    var booksQuerySnapshot = await db.collection("Books").where("id", isEqualTo: id).get();
 
-    // Check if there's any document matching the query
-    if (querySnapshot.docs.isNotEmpty) {
-      var documentId = querySnapshot.docs.first.id;
+    // Query the document from the "userBook" collection
+    var userBookQuerySnapshot = await db.collection("userBook").doc(fAuth.currentUser!.uid).collection("Books").where("id", isEqualTo: id).get();
 
-      // Update book details
+    if (booksQuerySnapshot.docs.isNotEmpty && userBookQuerySnapshot.docs.isNotEmpty) {
+      // Get the document IDs
+      var bookDocumentId = booksQuerySnapshot.docs.first.id;
+      var userBookDocumentId = userBookQuerySnapshot.docs.first.id;
+
       var updatedBook = BookModel(
         title: title,
         description: description,
@@ -214,17 +219,22 @@ var currentUserBooks = RxList<BookModel>();
         rating: rating,
       );
 
-      await db.collection("Books").doc(documentId).update(updatedBook.toJson());
+      // Update the document in the "Books" collection
+      await db.collection("Books").doc(bookDocumentId).update(updatedBook.toJson());
+
+      // Update the document in the "userBook" collection
+      await db.collection("userBook").doc(fAuth.currentUser!.uid).collection("Books").doc(userBookDocumentId).update(updatedBook.toJson());
 
       successMessage("Book details updated");
       getAllBooks();
       getUserBook();
       Get.back();
-
     } else {
       errorMessage("Book not found");
     }
   }
+
+
 
 
 

@@ -352,7 +352,7 @@ class EditBookDetails extends StatelessWidget {
                                 );
 
                                 // Clear the PDF URL after updating the book
-                                bookController.clearBookPdfUrl();
+                                // bookController.clearBookPdfUrl();
 
                                 // Navigate back
                                 // Get.back();

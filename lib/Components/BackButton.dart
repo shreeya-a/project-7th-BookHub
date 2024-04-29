@@ -14,8 +14,8 @@ class MyBackButton extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.back();
-        bookController.getUserBook();
-        bookController.getUserBook();
+        // bookController.getUserBook();
+        // bookController.getUserBook();
       },
       child: Row(
         children: [
