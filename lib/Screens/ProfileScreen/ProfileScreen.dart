@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_7th_bookhub/Components/BackButton.dart';
 import 'package:project_7th_bookhub/Components/BookTile.dart';
@@ -6,7 +7,9 @@ import 'package:project_7th_bookhub/Controller/BookController.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
 import 'package:get/get.dart';
 
+import '../../Components/ProfileBookTile.dart';
 import '../BookDetails/BookDetails.dart';
+import '../BookDetails/UserBookDetails.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -156,26 +159,35 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: 20),
 
                   Obx(
-                    () => Column(
+                        () => Column(
                       children: bookController.currentUserBooks
-                          .map((e) => BookTile(
-
-                                title: e.title!,
-                                coverUrl: e.coverUrl!,
-                                author: e.author!,
-                                price: e.price!,
-                                rating: e.rating!,
-                                category: e.category!,
-                        ontap: () {
-                          Get.to(BookDetails(book: e));
-                        },
-
-                              ))
+                          .map(
+                            (e) => ProfileBookTile(
+                          title: e.title!,
+                          coverUrl: e.coverUrl!,
+                          author: e.author!,
+                          price: e.price!,
+                          rating: e.rating!,
+                          category: e.category!,
+                          onTap: () {
+                            Get.to(BookDetails(book: e));
+                          },
+                          onEdit: () {
+                            // Handle edit action for the book 'e'
+                          },
+                          onDelete: () {
+                            // Handle delete action for the book 'e'
+                          },
+                        ),
+                      )
                           .toList(),
                     ),
                   ),
+
+
                 ],
               ),
+
             ),
           ],
         ),
