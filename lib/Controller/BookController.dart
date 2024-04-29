@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project_7th_bookhub/Screens/ProfileScreen/ProfileScreen.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
 import '../Config/Messages.dart';
@@ -29,20 +28,20 @@ class BookController extends GetxController {
   RxString pdfUrl = "".obs;
 
   var bookPdfUrl = "".obs; // Observable for the book PDF URL
+  var bookimageUrl = "".obs;
 
   // int index = 0;
   RxBool isImageUploading = false.obs;
   RxBool isPdfUploading = false.obs;
   RxBool isPostUploading = false.obs;
-var bookData = RxList<BookModel>();
-var currentUserBooks = RxList<BookModel>();
+  var bookData = RxList<BookModel>();
+  var currentUserBooks = RxList<BookModel>();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     getAllBooks();
-
   }
 
   void getAllBooks() async {
@@ -69,7 +68,7 @@ var currentUserBooks = RxList<BookModel>();
   void pickImage() async {
     isImageUploading.value = true;
     final XFile? image =
-    await imagePicker.pickImage(source: ImageSource.gallery);
+        await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       print(image.path);
       uploadImageToFirebase(File(image.path));
@@ -133,7 +132,6 @@ var currentUserBooks = RxList<BookModel>();
     getUserBook();
     Get.back();
     // Get.to(ProfileScreen());
-
   }
 
   void pickPDF() async {
@@ -151,7 +149,7 @@ var currentUserBooks = RxList<BookModel>();
         print("File Bytes: $fileBytes");
 
         final response =
-        await storage.ref().child("Pdf/$fileName").putData(fileBytes);
+            await storage.ref().child("Pdf/$fileName").putData(fileBytes);
 
         final downloadURL = await response.ref.getDownloadURL();
         pdfUrl.value = downloadURL;
@@ -171,38 +169,43 @@ var currentUserBooks = RxList<BookModel>();
         .doc(fAuth.currentUser!.uid)
         .collection("Books")
         .add(book.toJson());
-
   }
-
 
 // Function to clear the PDF URL
   void clearBookPdfUrl() {
     bookPdfUrl.value = "";
     pdfUrl.value = "";
     imageUrl.value = "";
-
+    bookimageUrl.value = "";
   }
 
   void updateBook(
-      String? id,
-      String title,
-      String description,
-      String author,
-      String category,
-      int price,
-      int pages,
-      String language,
-      String rating,
-      String imageUrl,
-      String pdfUrl,
-      ) async {
+    String? id,
+    String title,
+    String description,
+    String author,
+    String category,
+    int price,
+    int pages,
+    String language,
+    String rating,
+    String imageUrl,
+    String pdfUrl,
+  ) async {
     // Query the document from the "Books" collection
-    var booksQuerySnapshot = await db.collection("Books").where("id", isEqualTo: id).get();
+    var booksQuerySnapshot =
+        await db.collection("Books").where("id", isEqualTo: id).get();
 
     // Query the document from the "userBook" collection
-    var userBookQuerySnapshot = await db.collection("userBook").doc(fAuth.currentUser!.uid).collection("Books").where("id", isEqualTo: id).get();
+    var userBookQuerySnapshot = await db
+        .collection("userBook")
+        .doc(fAuth.currentUser!.uid)
+        .collection("Books")
+        .where("id", isEqualTo: id)
+        .get();
 
-    if (booksQuerySnapshot.docs.isNotEmpty && userBookQuerySnapshot.docs.isNotEmpty) {
+    if (booksQuerySnapshot.docs.isNotEmpty &&
+        userBookQuerySnapshot.docs.isNotEmpty) {
       // Get the document IDs
       var bookDocumentId = booksQuerySnapshot.docs.first.id;
       var userBookDocumentId = userBookQuerySnapshot.docs.first.id;
@@ -221,10 +224,18 @@ var currentUserBooks = RxList<BookModel>();
       );
 
       // Update the document in the "Books" collection
-      await db.collection("Books").doc(bookDocumentId).update(updatedBook.toJson());
+      await db
+          .collection("Books")
+          .doc(bookDocumentId)
+          .update(updatedBook.toJson());
 
       // Update the document in the "userBook" collection
-      await db.collection("userBook").doc(fAuth.currentUser!.uid).collection("Books").doc(userBookDocumentId).update(updatedBook.toJson());
+      await db
+          .collection("userBook")
+          .doc(fAuth.currentUser!.uid)
+          .collection("Books")
+          .doc(userBookDocumentId)
+          .update(updatedBook.toJson());
 
       successMessage("Book details updated");
       getAllBooks();
@@ -234,9 +245,5 @@ var currentUserBooks = RxList<BookModel>();
       errorMessage("Book not found");
     }
   }
-
-
-
-
 
 }

@@ -28,7 +28,7 @@ class EditBookDetails extends StatelessWidget {
     TextEditingController ratingController = TextEditingController(text: book.rating);
 
     // Load existing image URL
-    var imageUrl = book.coverUrl ?? "";
+    var cimageUrl = book.coverUrl ?? "";
     var bookpdfUrl = book.bookurl ?? "";
 
     return Scaffold(
@@ -67,43 +67,38 @@ class EditBookDetails extends StatelessWidget {
                         ),
                         SizedBox(height: 60),
                         InkWell(
-                          onTap: () {
-                            bookController.pickImage();
-                          },
-                          child: Obx(
-                                () => Container(
-                              height: 190,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                              child: Center(
-                                child: bookController.isImageUploading.value
-                                    ? CircularProgressIndicator(
-                                  color: Theme.of(context).colorScheme.primary,
-                                )
-                                    : imageUrl.isEmpty
-                                    ? Image.asset("Assets/Icons/addImage4.png")
-                                    : imageUrl.startsWith('http') || imageUrl.startsWith('https')
-                                    ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    imageUrl,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                                    : ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.file(
-                                    File(imageUrl),
-                                    fit: BoxFit.cover,
+                            onTap: () {
+                              bookController.pickImage();
+                            },
+                            child: Obx(
+                                  () => Container(
+                                height: 190,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Theme.of(context).colorScheme.background,
+                                ),
+                                child: Center(
+                                  child: bookController.isImageUploading.value
+                                      ? CircularProgressIndicator(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary,
+                                  )
+                                      : cimageUrl.isEmpty
+                                      ? Image.asset(
+                                      "Assets/Icons/addImage4.png")
+                                      : ClipRRect(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    child: Image.network(
+                                      cimageUrl,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
+                            )),
                         SizedBox(height: 20),
                       ],
                     ),
@@ -308,7 +303,7 @@ class EditBookDetails extends StatelessWidget {
                                 int.parse(pagesController.text),
                                 languageController.text,
                                 ratingController.text,
-                                bookController.imageUrl.value,
+                                cimageUrl,
                                 bookpdfUrl,
                               );
                               bookController.clearBookPdfUrl();

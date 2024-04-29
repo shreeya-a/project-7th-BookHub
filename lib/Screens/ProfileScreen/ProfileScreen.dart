@@ -175,9 +175,7 @@ class ProfileScreen extends StatelessWidget {
                             // Handle edit action for the book 'e'
                             Get.to(() => EditBookDetails(book: e,));
                           },
-                          onDelete: () {
-                            // Handle delete action for the book 'e'
-                          },
+
                         ),
                       )
                           .toList(),
@@ -189,6 +187,7 @@ class ProfileScreen extends StatelessWidget {
               ),
 
             ),
+            SizedBox(height: 20,),
           ],
         ),
       ),

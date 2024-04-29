@@ -108,10 +108,7 @@ class ProfileBookTile extends StatelessWidget {
                         IconButton(
                           onPressed: onEdit,
                           icon: Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: onDelete,
-                          icon: Icon(Icons.delete),
+                            color: Theme.of(context).colorScheme.primary
                         ),
                       ],
                     ),
