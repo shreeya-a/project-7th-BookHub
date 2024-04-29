@@ -179,6 +179,7 @@ var currentUserBooks = RxList<BookModel>();
   void clearBookPdfUrl() {
     bookPdfUrl.value = "";
     pdfUrl.value = "";
+    imageUrl.value = "";
 
   }
 

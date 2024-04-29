@@ -18,26 +18,19 @@ class EditBookDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BookController bookController = Get.put(BookController());
-    TextEditingController titleController =
-    TextEditingController(text: book.title);
-    TextEditingController descriptionController =
-    TextEditingController(text: book.description);
-    TextEditingController authorController =
-    TextEditingController(text: book.author);
-    TextEditingController categoryController =
-    TextEditingController(text: book.category);
-    TextEditingController priceController =
-    TextEditingController(text: book.price.toString());
-    TextEditingController pagesController =
-    TextEditingController(text: book.pages.toString());
-    TextEditingController languageController =
-    TextEditingController(text: book.language);
-    TextEditingController ratingController =
-    TextEditingController(text: book.rating);
+    TextEditingController titleController = TextEditingController(text: book.title);
+    TextEditingController descriptionController = TextEditingController(text: book.description);
+    TextEditingController authorController = TextEditingController(text: book.author);
+    TextEditingController categoryController = TextEditingController(text: book.category);
+    TextEditingController priceController = TextEditingController(text: book.price.toString());
+    TextEditingController pagesController = TextEditingController(text: book.pages.toString());
+    TextEditingController languageController = TextEditingController(text: book.language);
+    TextEditingController ratingController = TextEditingController(text: book.rating);
 
     // Load existing image URL
     var imageUrl = book.coverUrl ?? "";
     var bookpdfUrl = book.bookurl ?? "";
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -77,28 +70,26 @@ class EditBookDetails extends StatelessWidget {
                           onTap: () {
                             bookController.pickImage();
                           },
-                          child: Obx(
-                                () => Container(
-                              height: 190,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                              child: Center(
-                                child: bookController.isImageUploading.value
+                          child: Container(
+                            height: 190,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                            child: Center(
+                              child: Obx(
+                                    () => bookController.isImageUploading.value
                                     ? CircularProgressIndicator(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .primary,
                                 )
-                                    : imageUrl
-                                    .isEmpty // Check if imageUrl is empty or null
+                                    : imageUrl.isEmpty
                                     ? Image.asset(
                                     "Assets/Icons/addImage4.png")
                                     : imageUrl.startsWith('http') ||
-                                    imageUrl.startsWith(
-                                        'https') // Check if imageUrl is a network URL
+                                    imageUrl.startsWith('https')
                                     ? ClipRRect(
                                   borderRadius:
                                   BorderRadius.circular(10),
@@ -108,7 +99,6 @@ class EditBookDetails extends StatelessWidget {
                                   ),
                                 )
                                     : ClipRRect(
-                                  // If not a network URL, treat it as a local file path
                                   borderRadius:
                                   BorderRadius.circular(10),
                                   child: Image.file(
@@ -134,69 +124,50 @@ class EditBookDetails extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Obx(
-                              () => Container(
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: bookpdfUrl
-                                  .isEmpty // Check if pdfUrl is empty or null
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(10),
+                        child: Obx(() => Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: bookpdfUrl.isEmpty
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: bookController.isPdfUploading.value
+                              ? Center(
+                            child: CircularProgressIndicator(
+                              color: backgroundColor,
                             ),
-                            child: bookController.isPdfUploading.value
-                                ? Center(
-                              child: CircularProgressIndicator(
-                                color: backgroundColor,
-                              ),
-                            )
-                                : bookpdfUrl.isEmpty
-                                ? InkWell(
-                              onTap: () {
-                                bookController.pickPDF();
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                      "Assets/Icons/upload.png"),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    "Upload PDF",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                                : Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
+                          )
+                              : bookpdfUrl.isEmpty
+                              ? InkWell(
+                            onTap: () {
+                              bookController.pickPDF();
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    bookController.pickPDF(); // Change this line to toggle between delete and upload
-                                  },
-                                  child: Text(
-                                    "Change PDF",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
+                                Image.asset("Assets/Icons/upload.png"),
+                                SizedBox(width: 8),
+                                Text(
+                                  "Upload PDF",
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Theme.of(context).colorScheme.background,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                              : InkWell(
+                            onTap: () {
+                              bookController.pickPDF(); // Change this line to toggle between delete and upload
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Change PDF",
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Theme.of(context).colorScheme.background,
                                   ),
                                 ),
                                 SizedBox(width: 8),
@@ -207,7 +178,7 @@ class EditBookDetails extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
+                        )),
                       ),
                     ],
                   ),
@@ -306,10 +277,7 @@ class EditBookDetails extends StatelessWidget {
                                 SizedBox(width: 8),
                                 Text(
                                   "CANCEL",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: Colors.red,
                                   ),
                                 ),
@@ -321,69 +289,56 @@ class EditBookDetails extends StatelessWidget {
                       SizedBox(width: 3),
                       // Save button
                       Expanded(
-                        child: Obx(
-                              () => Container(
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              borderRadius: BorderRadius.circular(10),
+                        child: Obx(() => Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: bookController.isPostUploading.value
+                              ? Center(
+                            child: CircularProgressIndicator(
+                              color: backgroundColor,
                             ),
-                            child: bookController.isPostUploading.value
-                                ? Center(
-                              child: CircularProgressIndicator(
-                                color: backgroundColor,
-                              ),
-                            )
-                                : InkWell(
-                              onTap: () {
-                                // Update book details
-                                bookController.updateBook(
-                                  book.id,
-                                  titleController.text,
-                                  descriptionController.text,
-                                  authorController.text,
-                                  categoryController.text,
-                                  int.parse(priceController.text),
-                                  int.parse(pagesController.text),
-                                  languageController.text,
-                                  ratingController.text,
-                                  imageUrl,
-                                  bookpdfUrl,
-                                );
-
-                                // Clear the PDF URL after updating the book
-                                // bookController.clearBookPdfUrl();
-
-                                // Navigate back
-                                // Get.back();
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.upload_sharp,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
+                          )
+                              : InkWell(
+                            onTap: () {
+                              // Update book details
+                              bookController.updateBook(
+                                book.id,
+                                titleController.text,
+                                descriptionController.text,
+                                authorController.text,
+                                categoryController.text,
+                                int.parse(priceController.text),
+                                int.parse(pagesController.text),
+                                languageController.text,
+                                ratingController.text,
+                                bookController.imageUrl.value,
+                                bookpdfUrl,
+                              );
+                              bookController.clearBookPdfUrl();
+                              // Navigate back
+                              // Get.back();
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.upload_sharp,
+                                  color: Theme.of(context).colorScheme.background,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  "SAVE",
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Theme.of(context).colorScheme.background,
                                   ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    "SAVE",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
+                        )),
                       ),
                     ],
                   ),
