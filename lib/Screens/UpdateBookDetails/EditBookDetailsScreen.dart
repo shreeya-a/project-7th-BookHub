@@ -337,23 +337,25 @@ class EditBookDetails extends StatelessWidget {
                                 : InkWell(
                               onTap: () {
                                 // Update book details
-                                // bookController.updateBook(
-                                //   book.id,
-                                //   titleController.text,
-                                //   descriptionController.text,
-                                //   authorController.text,
-                                //   categoryController.text,
-                                //   int.parse(priceController.text),
-                                //   int.parse(pagesController.text),
-                                //   languageController.text,
-                                //   ratingController.text,
-                                // );
+                                bookController.updateBook(
+                                  book.id,
+                                  titleController.text,
+                                  descriptionController.text,
+                                  authorController.text,
+                                  categoryController.text,
+                                  int.parse(priceController.text),
+                                  int.parse(pagesController.text),
+                                  languageController.text,
+                                  ratingController.text,
+                                  imageUrl,
+                                  bookpdfUrl,
+                                );
 
                                 // Clear the PDF URL after updating the book
                                 bookController.clearBookPdfUrl();
 
                                 // Navigate back
-                                Get.back();
+                                // Get.back();
                               },
                               child: Row(
                                 mainAxisAlignment:

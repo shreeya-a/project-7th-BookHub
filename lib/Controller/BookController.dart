@@ -180,4 +180,52 @@ var currentUserBooks = RxList<BookModel>();
 
   }
 
+  void updateBook(
+      String? id,
+      String title,
+      String description,
+      String author,
+      String category,
+      int price,
+      int pages,
+      String language,
+      String rating,
+      String imageUrl,
+      String pdfUrl,
+      ) async {
+    // Query Firestore to find the document ID corresponding to the book ID
+    var querySnapshot = await db.collection("Books").where("id", isEqualTo: id).get();
+
+    // Check if there's any document matching the query
+    if (querySnapshot.docs.isNotEmpty) {
+      var documentId = querySnapshot.docs.first.id;
+
+      // Update book details
+      var updatedBook = BookModel(
+        title: title,
+        description: description,
+        coverUrl: imageUrl,
+        bookurl: pdfUrl,
+        author: author,
+        category: category,
+        price: price,
+        pages: pages,
+        language: language,
+        rating: rating,
+      );
+
+      await db.collection("Books").doc(documentId).update(updatedBook.toJson());
+
+      successMessage("Book details updated");
+      getAllBooks();
+      getUserBook();
+      Get.back();
+
+    } else {
+      errorMessage("Book not found");
+    }
+  }
+
+
+
 }
