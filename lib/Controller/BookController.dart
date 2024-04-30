@@ -260,5 +260,4 @@ class BookController extends GetxController {
       errorMessage("Book not found");
     }
   }
-
 }
