@@ -22,7 +22,6 @@ class HomeScreen extends StatelessWidget {
     BookController bookController = Get.put(BookController());
     bookController.getUserBook();
     return Scaffold(
-
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -38,7 +37,6 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           SizedBox(height: 30),
                           HomeAppBar(),
-
                           SizedBox(height: 40),
                           Row(
                             children: [

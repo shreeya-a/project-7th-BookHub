@@ -188,25 +188,6 @@ class BookController extends GetxController {
   }
 
 
-  // Method to search books based on the search query
-  void searchBooks(String query) async {
-    // Query Firebase Firestore to search for books
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('Books')
-        .where('title', isGreaterThanOrEqualTo: query)
-        .where('title', isLessThanOrEqualTo: query + '\uf8ff')
-        .get();
-
-           // Extract search results from the query snapshot
-    List<Map<String, dynamic>> results = [];
-    querySnapshot.docs.forEach((doc) {
-      results.add(doc.data()as Map<String, dynamic>);
-    });
-    print(results);
-
-    // Update searchResults with the search results
-    searchResults.assignAll(results);
-  }
 
 // Function to clear the PDF URL
   void clearBookPdfUrl() {
@@ -216,24 +197,22 @@ class BookController extends GetxController {
     bookimageUrl.value = "";
     cimageUrl.value = "";
   }
-
   void updateBook(
-    String? id,
-    String title,
-    String description,
-    String author,
-    String category,
-    int price,
-    int pages,
-    String language,
-    String rating,
-    String imageUrl,
-    String pdfUrl,
-  ) async {
+      String? id,
+      String title,
+      String description,
+      String author,
+      String category,
+      int price,
+      int pages,
+      String language,
+      String rating,
+      String imageUrl,
+      String pdfUrl,
+      ) async {
     // Query the document from the "Books" collection
     var booksQuerySnapshot =
-        await db.collection("Books").where("id", isEqualTo: id).get();
-
+    await db.collection("Books").where("id", isEqualTo: id).get();
     // Query the document from the "userBook" collection
     var userBookQuerySnapshot = await db
         .collection("userBook")
@@ -241,13 +220,11 @@ class BookController extends GetxController {
         .collection("Books")
         .where("id", isEqualTo: id)
         .get();
-
     if (booksQuerySnapshot.docs.isNotEmpty &&
         userBookQuerySnapshot.docs.isNotEmpty) {
       // Get the document IDs
       var bookDocumentId = booksQuerySnapshot.docs.first.id;
       var userBookDocumentId = userBookQuerySnapshot.docs.first.id;
-
       var updatedBook = BookModel(
         title: title,
         description: description,
@@ -260,13 +237,11 @@ class BookController extends GetxController {
         language: language,
         rating: rating,
       );
-
       // Update the document in the "Books" collection
       await db
           .collection("Books")
           .doc(bookDocumentId)
           .update(updatedBook.toJson());
-
       // Update the document in the "userBook" collection
       await db
           .collection("userBook")
@@ -274,7 +249,6 @@ class BookController extends GetxController {
           .collection("Books")
           .doc(userBookDocumentId)
           .update(updatedBook.toJson());
-
       successMessage("Book details updated");
       getAllBooks();
       getUserBook();
@@ -282,6 +256,25 @@ class BookController extends GetxController {
     } else {
       errorMessage("Book not found");
     }
+  }
+
+  void searchBooks(String query) async {
+    // Query Firebase Firestore to search for books
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('Books')
+        .where('title', isGreaterThanOrEqualTo: query)
+        .where('title', isLessThanOrEqualTo: query + '\uf8ff')
+        .get();
+
+    // Extract search results from the query snapshot
+    List<Map<String, dynamic>> results = [];
+    querySnapshot.docs.forEach((doc) {
+      results.add(doc.data()as Map<String, dynamic>);
+    });
+    print(results);
+
+    // Update searchResults with the search results
+    searchResults.assignAll(results);
   }
 }
 
