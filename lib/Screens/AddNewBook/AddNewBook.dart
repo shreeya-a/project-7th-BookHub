@@ -191,7 +191,7 @@ class AddNewBookPage extends StatelessWidget {
                 SizedBox(height: 10),
                 MyTextFormField(
                   hintText: "Category",
-                  icon: Icons.person,
+                  icon: Icons.category,
                   controller: bookController.category,
                 ),
                 SizedBox(height: 10),

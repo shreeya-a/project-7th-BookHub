@@ -192,7 +192,7 @@ class EditBookDetails extends StatelessWidget {
                   SizedBox(height: 10),
                   MyTextFormField(
                     hintText: "Category",
-                    icon: Icons.person,
+                    icon: Icons.category,
                     controller: categoryController,
                   ),
                   SizedBox(height: 10),
