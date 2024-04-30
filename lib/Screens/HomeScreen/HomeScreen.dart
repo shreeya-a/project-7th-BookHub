@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:project_7th_bookhub/Components/BookTile.dart';
 import 'package:project_7th_bookhub/Config/Colors.dart';
 import 'package:project_7th_bookhub/Controller/BookController.dart';
-// import 'package:flutter/widgets.dart';
-
 import 'package:project_7th_bookhub/Models/Data.dart';
 import 'package:project_7th_bookhub/Screens/BookDetails/BookDetails.dart';
 import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/AppBar.dart';
@@ -14,15 +12,17 @@ import 'package:project_7th_bookhub/Screens/HomeScreen/Widgets/SearchBar.dart';
 import '../../Components/BookCard.dart';
 import '../../Components/MyDrawer.dart';
 
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     BookController bookController = Get.put(BookController());
     bookController.getUserBook();
     return Scaffold(
-      drawer: myDrawer,
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -38,11 +38,12 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           SizedBox(height: 30),
                           HomeAppBar(),
-                          SizedBox(height: 50),
+
+                          SizedBox(height: 40),
                           Row(
                             children: [
                               Text(
-                                "Good Morining✌️",
+                                "Welcome!!",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -53,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "Nitish",
+                                "Bibliophile",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium
@@ -129,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Trending",
+                        "Recently added",
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
@@ -140,6 +141,7 @@ class HomeScreen extends StatelessWidget {
                       child: Obx(
                             () => Row(
                           children: bookController.bookData
+                          .take(10)
                               .map(
                                 (e) => BookCard(
                               title: e.title!,
@@ -154,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                               .toList(),
                         ),
                       )),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Row(
                     children: [
                       Text(
@@ -166,6 +168,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 10),
                   Obx(() => Column(
                     children: bookController.bookData
+                        .take(25)
                         .map(
                           (e) => BookTile(
                         ontap: () {

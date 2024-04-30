@@ -26,12 +26,17 @@ class BookController extends GetxController {
   final fAuth = FirebaseAuth.instance;
   RxString imageUrl = "".obs;
   RxString pdfUrl = "".obs;
-  int index = 0;
+
+  var bookPdfUrl = "".obs; // Observable for the book PDF URL
+  var bookimageUrl = "".obs;
+  var cimageUrl = "".obs;
+
+  // int index = 0;
   RxBool isImageUploading = false.obs;
   RxBool isPdfUploading = false.obs;
   RxBool isPostUploading = false.obs;
-var bookData = RxList<BookModel>();
-var currentUserBooks = RxList<BookModel>();
+  var bookData = RxList<BookModel>();
+  var currentUserBooks = RxList<BookModel>();
 
   RxList<Map<String, dynamic>> searchResults = <Map<String, dynamic>>[].obs;
 
@@ -40,12 +45,11 @@ var currentUserBooks = RxList<BookModel>();
     // TODO: implement onInit
     super.onInit();
     getAllBooks();
-
   }
 
   void getAllBooks() async {
     bookData.clear();
-    successMessage("Book Get Fun");
+    // successMessage("Book Get Fun");
     var books = await db.collection("Books").get();
     for (var book in books.docs) {
       bookData.add(BookModel.fromJson(book.data()));
@@ -67,7 +71,7 @@ var currentUserBooks = RxList<BookModel>();
   void pickImage() async {
     isImageUploading.value = true;
     final XFile? image =
-    await imagePicker.pickImage(source: ImageSource.gallery);
+        await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       print(image.path);
       uploadImageToFirebase(File(image.path));
@@ -87,10 +91,23 @@ var currentUserBooks = RxList<BookModel>();
   }
 
   void createBook() async {
+    if (title.text.isEmpty ||
+        description.text.isEmpty ||
+        author.text.isEmpty ||
+        category.text.isEmpty ||
+        price.text.isEmpty ||
+        pages.text.isEmpty ||
+        language.text.isEmpty ||
+        rating.text.isEmpty ||
+        imageUrl.value.isEmpty ||
+        pdfUrl.value.isEmpty) {
+      errorMessage("Please fill in all the fields");
+      return;
+    }
     isPostUploading.value = true;
-    index ++;
+    // index ++;
     var newBook = BookModel(
-      id: "$index",
+      // id: "$index",
       title: title.text,
       description: description.text,
       coverUrl: imageUrl.value,
@@ -103,6 +120,15 @@ var currentUserBooks = RxList<BookModel>();
       // audioLen: audioLen.text,
       rating: rating.text,
     );
+
+    // Use doc() without passing any arguments to generate a unique ID
+    var documentReference = db.collection("Books").doc();
+
+    // Get the automatically generated ID
+    var newBookId = documentReference.id;
+
+    // Set the ID in the BookModel
+    newBook.id = newBookId;
 
     await db.collection("Books").add(newBook.toJson());
     addBookInUserDb(newBook);
@@ -117,10 +143,11 @@ var currentUserBooks = RxList<BookModel>();
     price.clear();
     imageUrl.value = "";
     pdfUrl.value = "";
-    successMessage("Book added to the db");
+    successMessage("Book added successfully");
     getAllBooks();
     getUserBook();
-
+    Get.back();
+    // Get.to(ProfileScreen());
   }
 
   void pickPDF() async {
@@ -135,19 +162,19 @@ var currentUserBooks = RxList<BookModel>();
       if (file.existsSync()) {
         Uint8List fileBytes = await file.readAsBytes();
         String fileName = result.files.first.name;
-        print("File Bytes: $fileBytes");
+        // print("File Bytes: $fileBytes");
 
         final response =
-        await storage.ref().child("Pdf/$fileName").putData(fileBytes);
+            await storage.ref().child("Pdf/$fileName").putData(fileBytes);
 
         final downloadURL = await response.ref.getDownloadURL();
         pdfUrl.value = downloadURL;
-        print(downloadURL);
+        // print(downloadURL);
       } else {
-        print("File does not exist");
+        // print("File does not exist");
       }
     } else {
-      print("No file selected");
+      // print("No file selected");
     }
     isPdfUploading.value = false;
   }
@@ -158,8 +185,8 @@ var currentUserBooks = RxList<BookModel>();
         .doc(fAuth.currentUser!.uid)
         .collection("Books")
         .add(book.toJson());
-
   }
+
 
   // Method to search books based on the search query
   void searchBooks(String query) async {
@@ -170,7 +197,7 @@ var currentUserBooks = RxList<BookModel>();
         .where('title', isLessThanOrEqualTo: query + '\uf8ff')
         .get();
 
-    // Extract search results from the query snapshot
+           // Extract search results from the query snapshot
     List<Map<String, dynamic>> results = [];
     querySnapshot.docs.forEach((doc) {
       results.add(doc.data()as Map<String, dynamic>);
@@ -180,4 +207,82 @@ var currentUserBooks = RxList<BookModel>();
     // Update searchResults with the search results
     searchResults.assignAll(results);
   }
+
+// Function to clear the PDF URL
+  void clearBookPdfUrl() {
+    bookPdfUrl.value = "";
+    pdfUrl.value = "";
+    imageUrl.value = "";
+    bookimageUrl.value = "";
+    cimageUrl.value = "";
+  }
+
+  void updateBook(
+    String? id,
+    String title,
+    String description,
+    String author,
+    String category,
+    int price,
+    int pages,
+    String language,
+    String rating,
+    String imageUrl,
+    String pdfUrl,
+  ) async {
+    // Query the document from the "Books" collection
+    var booksQuerySnapshot =
+        await db.collection("Books").where("id", isEqualTo: id).get();
+
+    // Query the document from the "userBook" collection
+    var userBookQuerySnapshot = await db
+        .collection("userBook")
+        .doc(fAuth.currentUser!.uid)
+        .collection("Books")
+        .where("id", isEqualTo: id)
+        .get();
+
+    if (booksQuerySnapshot.docs.isNotEmpty &&
+        userBookQuerySnapshot.docs.isNotEmpty) {
+      // Get the document IDs
+      var bookDocumentId = booksQuerySnapshot.docs.first.id;
+      var userBookDocumentId = userBookQuerySnapshot.docs.first.id;
+
+      var updatedBook = BookModel(
+        title: title,
+        description: description,
+        coverUrl: imageUrl,
+        bookurl: pdfUrl,
+        author: author,
+        category: category,
+        price: price,
+        pages: pages,
+        language: language,
+        rating: rating,
+      );
+
+      // Update the document in the "Books" collection
+      await db
+          .collection("Books")
+          .doc(bookDocumentId)
+          .update(updatedBook.toJson());
+
+      // Update the document in the "userBook" collection
+      await db
+          .collection("userBook")
+          .doc(fAuth.currentUser!.uid)
+          .collection("Books")
+          .doc(userBookDocumentId)
+          .update(updatedBook.toJson());
+
+      successMessage("Book details updated");
+      getAllBooks();
+      getUserBook();
+      Get.back();
+    } else {
+      errorMessage("Book not found");
+    }
+  }
 }
+
+ 
