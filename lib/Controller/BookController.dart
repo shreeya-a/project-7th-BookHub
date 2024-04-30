@@ -89,6 +89,19 @@ class BookController extends GetxController {
   }
 
   void createBook() async {
+    if (title.text.isEmpty ||
+        description.text.isEmpty ||
+        author.text.isEmpty ||
+        category.text.isEmpty ||
+        price.text.isEmpty ||
+        pages.text.isEmpty ||
+        language.text.isEmpty ||
+        rating.text.isEmpty ||
+        imageUrl.value.isEmpty ||
+        pdfUrl.value.isEmpty) {
+      errorMessage("Please fill in all the fields");
+      return;
+    }
     isPostUploading.value = true;
     // index ++;
     var newBook = BookModel(

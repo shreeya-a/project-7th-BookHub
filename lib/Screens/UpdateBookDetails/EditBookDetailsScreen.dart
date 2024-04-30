@@ -8,6 +8,7 @@ import 'package:project_7th_bookhub/Controller/BookController.dart';
 import 'package:project_7th_bookhub/Controller/PdfController.dart';
 import '../../Components/BackButton.dart';
 import '../../Config/Colors.dart';
+import '../../Config/Messages.dart';
 import '../../Models/BookModel.dart';
 
 class EditBookDetails extends StatelessWidget {
@@ -292,6 +293,20 @@ class EditBookDetails extends StatelessWidget {
                           )
                               : InkWell(
                             onTap: () {
+                              // Check if any of the required fields are empty
+                              if (titleController.text.isEmpty ||
+                                  descriptionController.text.isEmpty ||
+                                  authorController.text.isEmpty ||
+                                  categoryController.text.isEmpty ||
+                                  priceController.text.isEmpty ||
+                                  pagesController.text.isEmpty ||
+                                  languageController.text.isEmpty ||
+                                  ratingController.text.isEmpty ||
+                                  cimageUrl.isEmpty ||
+                                  bookpdfUrl.isEmpty) {
+                                errorMessage("Please fill in all the fields");
+                                return;
+                              }
                               // Update book details
                               bookController.updateBook(
                                 book.id,
