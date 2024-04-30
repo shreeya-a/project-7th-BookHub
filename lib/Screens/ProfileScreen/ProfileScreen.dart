@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_7th_bookhub/Components/BackButton.dart';
-import 'package:project_7th_bookhub/Components/BookTile.dart';
 import 'package:project_7th_bookhub/Controller/AuthController.dart';
 import 'package:project_7th_bookhub/Controller/BookController.dart';
 import 'package:project_7th_bookhub/Screens/AddNewBook/AddNewBook.dart';
 import 'package:get/get.dart';
+import '../../Components/ProfileBookTile.dart';
+import '../BookDetails/BookDetails.dart';
+import '../UpdateBookDetails/EditBookDetailsScreen.dart';
 
 import '../BookDetails/BookDetails.dart';
 
@@ -58,11 +60,37 @@ class ProfileScreen extends StatelessWidget {
                           // ---- sign out button ---
                           IconButton(
                             onPressed: () {
-                              authController.signout();
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Logout'),
+                                    content: Text('Are you sure you want to logout?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(); // Close the dialog
+                                        },
+                                        child: Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(); // Close the dialog
+                                          Future.delayed(Duration.zero, () {
+                                            authController.signout();
+                                          });// Perform logout
+                                        },
+                                        child: Text('Logout'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             icon: Icon(Icons.exit_to_app),
                             color: Theme.of(context).colorScheme.background,
                           ),
+
                         ],
                       ),
                       SizedBox(height: 60),
@@ -90,16 +118,21 @@ class ProfileScreen extends StatelessWidget {
                       Text(
                         "${authController.auth.currentUser!.displayName}",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.background),
+                            color: Theme.of(context).colorScheme.background,
+                          fontSize: 20
+
+                        ),
+
                       ),
+                      SizedBox(height: 10,),
                       Text(
                         "${authController.auth.currentUser!.email}",
 
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer,
+                                 color: Colors.white54,
+                              fontSize: 15
+
                                 ),
                       ),
                     ],
@@ -114,33 +147,47 @@ class ProfileScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text("Your Books",
-                          style: Theme.of(context).textTheme.labelMedium),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                          ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 20),
 
                   Obx(
-                    () => Column(
+                        () => Column(
                       children: bookController.currentUserBooks
-                          .map((e) => BookTile(
-                                title: e.title!,
-                                coverUrl: e.coverUrl!,
-                                author: e.author!,
-                                price: e.price!,
-                                rating: e.rating!,
-                                category: e.category!,
-                                ontap: () {
+                          .map(
+                            (e) => ProfileBookTile(
+                          title: e.title!,
+                          coverUrl: e.coverUrl!,
+                          author: e.author!,
+                          price: e.price!,
+                          rating: e.rating!,
+                          category: e.category!,
+                          onTap: () {
+                            Get.to(BookDetails(book: e));
+                          },
+                          onEdit: () {
+                            // Handle edit action for the book 'e'
+                            Get.to(() => EditBookDetails(book: e,));
+                          },
 
-                                  Get.to(BookDetails(book: e));
-
-                                },
-                              ))
+                        ),
+                      )
                           .toList(),
                     ),
                   ),
+
+
                 ],
               ),
+
             ),
+            SizedBox(height: 20,),
           ],
         ),
       ),
