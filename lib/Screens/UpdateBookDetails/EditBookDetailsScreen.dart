@@ -31,6 +31,8 @@ class EditBookDetails extends StatelessWidget {
     var cimageUrl = book.coverUrl ?? "";
     var bookpdfUrl = book.bookurl ?? "";
 
+    var originalCoverUrl = cimageUrl;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -66,39 +68,37 @@ class EditBookDetails extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 60),
-                        InkWell(
+                        Obx(
+                              () => InkWell(
                             onTap: () {
                               bookController.pickImage();
                             },
-                            child: Obx(
-                                  () => Container(
-                                height: 190,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Theme.of(context).colorScheme.background,
-                                ),
-                                child: Center(
-                                  child: bookController.isImageUploading.value
-                                      ? CircularProgressIndicator(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primary,
-                                  )
-                                      : cimageUrl.isEmpty
-                                      ? Image.asset(
-                                      "Assets/Icons/addImage4.png")
-                                      : ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                    child: Image.network(
-                                      cimageUrl,
-                                      fit: BoxFit.cover,
-                                    ),
+                            child: Container(
+                              height: 190,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Theme.of(context).colorScheme.background,
+                              ),
+                              child: Center(
+                                child: bookController.isImageUploading.value
+                                    ? CircularProgressIndicator(
+                                  color: Theme.of(context).colorScheme.primary,
+                                )
+                                    : cimageUrl.isEmpty
+                                    ? Image.asset("Assets/Icons/addImage4.png")
+                                    : ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    cimageUrl,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
+
                         SizedBox(height: 20),
                       ],
                     ),
@@ -130,7 +130,7 @@ class EditBookDetails extends StatelessWidget {
                               : bookpdfUrl.isEmpty
                               ? InkWell(
                             onTap: () {
-                              bookController.pickPDF();
+                              // bookController.pickPDF();
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -308,7 +308,7 @@ class EditBookDetails extends StatelessWidget {
                               );
                               bookController.clearBookPdfUrl();
                               // Navigate back
-                              Get.back();
+                              // Get.back();
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

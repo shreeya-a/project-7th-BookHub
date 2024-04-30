@@ -29,6 +29,7 @@ class BookController extends GetxController {
 
   var bookPdfUrl = "".obs; // Observable for the book PDF URL
   var bookimageUrl = "".obs;
+  var cimageUrl = "".obs;
 
   // int index = 0;
   RxBool isImageUploading = false.obs;
@@ -127,7 +128,7 @@ class BookController extends GetxController {
     price.clear();
     imageUrl.value = "";
     pdfUrl.value = "";
-    successMessage("Book added to the db");
+    successMessage("Book added successfully");
     getAllBooks();
     getUserBook();
     Get.back();
@@ -146,19 +147,19 @@ class BookController extends GetxController {
       if (file.existsSync()) {
         Uint8List fileBytes = await file.readAsBytes();
         String fileName = result.files.first.name;
-        print("File Bytes: $fileBytes");
+        // print("File Bytes: $fileBytes");
 
         final response =
             await storage.ref().child("Pdf/$fileName").putData(fileBytes);
 
         final downloadURL = await response.ref.getDownloadURL();
         pdfUrl.value = downloadURL;
-        print(downloadURL);
+        // print(downloadURL);
       } else {
-        print("File does not exist");
+        // print("File does not exist");
       }
     } else {
-      print("No file selected");
+      // print("No file selected");
     }
     isPdfUploading.value = false;
   }
@@ -177,6 +178,7 @@ class BookController extends GetxController {
     pdfUrl.value = "";
     imageUrl.value = "";
     bookimageUrl.value = "";
+    cimageUrl.value = "";
   }
 
   void updateBook(
