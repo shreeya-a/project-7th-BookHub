@@ -169,6 +169,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 10),
                   Obx(() => Column(
                     children: bookController.bookData
+                        .take(25)
                         .map(
                           (e) => BookTile(
                         ontap: () {
